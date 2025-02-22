@@ -9,14 +9,39 @@ struct AuthenticationView: View {
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
+            
             VStack(spacing: 20) {
                 
                 // App Title
-                Text("Courtside AI")
-                    .font(.system(size: 40, weight: .bold, design: .monospaced))
+                Text("Courtside AI 🏀")
+                    .font(.system(size: 35, weight: .bold, design: .monospaced))
                     .foregroundColor(.white)
-                    .padding(.bottom, 20)
                 
+                // Image Section with Overlapping Effect
+                ZStack {
+                    // Shai (Left)
+                    Image("shai")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 140, height: 140)
+                        .offset(x: -60) // Move left
+                    
+                    // Curry (Right)
+                    Image("curry")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 140, height: 140)
+                        .offset(x: 60) // Move right
+                    
+                    // LeBron (Middle - on top)
+                    Image("lebron (1)")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 180, height: 180)
+                        .zIndex(1) // Ensure LeBron is on top
+                }
+                .padding(.bottom, 10)
+
                 // Email Field
                 TextField("Email", text: $email)
                     .textFieldStyle(PlainTextFieldStyle())

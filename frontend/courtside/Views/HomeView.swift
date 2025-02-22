@@ -37,14 +37,16 @@ struct HomeView: View {
                 .background(Color.black.ignoresSafeArea())
                 
                 .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(leading: Button(action: {
-                    withAnimation {
-                        showMenu.toggle()
+                .navigationBarItems(leading:
+                    showMenu ? nil : Button(action: {
+                        withAnimation {
+                            showMenu.toggle()
+                        }
+                    }) {
+                        Image(systemName: "line.horizontal.3")
+                            .foregroundColor(.white)
                     }
-                }) {
-                    Image(systemName: "line.horizontal.3")
-                        .foregroundColor(.white)
-                })
+                )
 
                 // Side Menu (Slide In/Out)
                 CustomSideMenuView(showMenu: $showMenu, selectedTab: $selectedTab)
@@ -62,7 +64,11 @@ struct MenuButton: View {
     var body: some View {
         Button(action: action) {
             HStack {
-                Image(systemName: icon)
+                if UIImage(systemName: icon) != nil {
+                    Image(systemName: icon)
+                } else {
+                    Text(icon) // Use emoji if icon is not an SF Symbol
+                }
                 Text(title)
                     .bold()
             }
@@ -72,6 +78,7 @@ struct MenuButton: View {
         .background(Color.clear)
     }
 }
+
 
 struct CustomSideMenuView: View {
     @Binding var showMenu: Bool
@@ -103,37 +110,37 @@ struct CustomSideMenuView: View {
 
                     // Menu Items
                     Group {
-                        MenuButton(title: "Home", icon: "house.fill") {
+                        MenuButton(title: "Home", icon: "🏡") {
                             selectedTab = nil
                             showMenu = false
                         }
                         
-                        MenuButton(title: "Settings", icon: "gear") {
+                        MenuButton(title: "Settings", icon: "⚙️") {
                             selectedTab = "Settings"
                             showMenu = false
                         }
                         
-                        MenuButton(title: "Stats", icon: "star.fill") {
+                        MenuButton(title: "Stats", icon: "🥇") {
                             selectedTab = "Stats"
                             showMenu = false
                         }
                         
-                        MenuButton(title: "Analytics", icon: "chart.bar.fill") {
+                        MenuButton(title: "Analytics", icon: "📊") {
                             selectedTab = "Analytics"
                             showMenu = false
                         }
                         
-                        MenuButton(title: "Game History", icon: "clock.arrow.circlepath") {
+                        MenuButton(title: "Game History", icon: "⏰") {
                             selectedTab = "GameHistory"
                             showMenu = false
                         }
                         
-                        MenuButton(title: "Start Game", icon: "flag.checkered") {
+                        MenuButton(title: "Start Game", icon: "🚀") {
                             selectedTab = "StartGame"
                             showMenu = false
                         }
                         
-                        MenuButton(title: "Friends", icon: "person.2.fill") {
+                        MenuButton(title: "Friends", icon: "👭") {
                             selectedTab = "Friends"
                             showMenu = false
                         }
@@ -161,12 +168,13 @@ struct CustomSideMenuView: View {
                                 .foregroundColor(.red)
                                 .bold()
                         }
-                        .padding()
+                        .padding(10)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .background(Color.white.opacity(0.1))
                     .cornerRadius(10)
                     .padding(.horizontal, 20)
+                    .padding(.bottom,30)
 
                 }
                 .frame(width: 250)
@@ -180,7 +188,6 @@ struct CustomSideMenuView: View {
         }
     }
 }
-
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
