@@ -16,8 +16,8 @@ struct HomeView: View {
                             .padding()
                     } else {
                         switch selectedTab {
-                        case "Settings":
-                            SettingsView()
+                        case "PlayGame":
+                            RealTimeClipView()
                         case "Stats":
                             StatsView()
                         case "Analytics":
@@ -115,8 +115,8 @@ struct CustomSideMenuView: View {
                             showMenu = false
                         }
                         
-                        MenuButton(title: "Settings", icon: "⚙️") {
-                            selectedTab = "Settings"
+                        MenuButton(title: "Play Game", icon: "🏀") {
+                            selectedTab = "PlayGame"
                             showMenu = false
                         }
                         

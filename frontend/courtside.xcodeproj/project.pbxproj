@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0612EB189AE0579F707100E4 /* Pods_courtside.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F3624BA8D12B8BCA06881C /* Pods_courtside.framework */; };
 		1C1D09CA78DA1D0F133C7859 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		320BA8752D6A955300E49277 /* RealTimeClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320BA8742D6A955300E49277 /* RealTimeClipView.swift */; };
 		3287A8C12D6A24DB00B8E60C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */; };
 		3287A8C32D6A25DD00B8E60C /* ShotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C22D6A25DD00B8E60C /* ShotModel.swift */; };
 		3287A8C52D6A25F000B8E60C /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C42D6A25F000B8E60C /* GameModel.swift */; };
@@ -29,11 +30,8 @@
 		32EB17D02D69AB4000BBAA50 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */; };
 		32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */; };
 		32EB17DB2D69FFBA00BBAA50 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */; };
-
 		62E68D5F2D6A3420002FE46C /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E68D5E2D6A3420002FE46C /* VideoPicker.swift */; };
 		62E68D632D6A34D2002FE46C /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E68D622D6A34D2002FE46C /* VideoPlayerView.swift */; };
-		D39E129ED65CFB3CFCBC3430 /* Pods_courtside_courtsideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECB65C827FED1FD6ECC87D1 /* Pods_courtside_courtsideUITests.framework */; };
-		D6047282FE1F9F50AFE5D51B /* Pods_courtside.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8086B135D9E23DBC29126D /* Pods_courtside.framework */; };
 		E768A6C92D69B521006659A3 /* SideMenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6C82D69B521006659A3 /* SideMenuType.swift */; };
 		E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D22D69B6A7006659A3 /* StatsView.swift */; };
 		E768A6D52D69B6B3006659A3 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */; };
@@ -62,6 +60,7 @@
 		07F3624BA8D12B8BCA06881C /* Pods_courtside.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FD2CF0963BB2059FB588009 /* Pods-courtsideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.debug.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2E315048AC9D4710C23AF222 /* Pods-courtsideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.release.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.release.xcconfig"; sourceTree = "<group>"; };
+		320BA8742D6A955300E49277 /* RealTimeClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeClipView.swift; sourceTree = "<group>"; };
 		3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		3287A8C22D6A25DD00B8E60C /* ShotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotModel.swift; sourceTree = "<group>"; };
 		3287A8C42D6A25F000B8E60C /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
@@ -86,15 +85,11 @@
 		32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistoryView.swift; sourceTree = "<group>"; };
 		32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		3B42BC9DCAC8330FDDD6BD0D /* Pods-courtside.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside.debug.xcconfig"; path = "Target Support Files/Pods-courtside/Pods-courtside.debug.xcconfig"; sourceTree = "<group>"; };
-		E03074F4770C2AD0852E5AC7 /* Pods-courtside-courtsideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.debug.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		E100B1D6DE1AE7EFACE6056F /* Pods-courtside-courtsideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.release.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.release.xcconfig"; sourceTree = "<group>"; };
-		3423B982235EB7F9C3D2D813 /* Pods_courtsideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtsideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		35F137C697F53195491F2869 /* Pods-courtside-courtsideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.release.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		62E68D5E2D6A3420002FE46C /* VideoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
 		62E68D622D6A34D2002FE46C /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		62E68D642D6A3E52002FE46C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8ECB65C827FED1FD6ECC87D1 /* Pods_courtside_courtsideUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside_courtsideUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8149E43BE5D906519ED7A4A /* Pods-courtside-courtsideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.debug.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E03074F4770C2AD0852E5AC7 /* Pods-courtside-courtsideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.debug.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E100B1D6DE1AE7EFACE6056F /* Pods-courtside-courtsideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.release.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E768A6C82D69B521006659A3 /* SideMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuType.swift; sourceTree = "<group>"; };
 		E768A6D22D69B6A7006659A3 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
@@ -117,7 +112,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA565BA813E017BBF739DF00 /* Pods_courtsideTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +120,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C1D09CA78DA1D0F133C7859 /* (null) in Frameworks */,
-				9853282713F79C5386D385E8 /* Pods_courtside_courtsideUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +213,7 @@
 				32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */,
 				62E68D5E2D6A3420002FE46C /* VideoPicker.swift */,
 				62E68D622D6A34D2002FE46C /* VideoPlayerView.swift */,
+				320BA8742D6A955300E49277 /* RealTimeClipView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -251,7 +245,6 @@
 			children = (
 				07F3624BA8D12B8BCA06881C /* Pods_courtside.framework */,
 				E8AB89428E2A699661BC0293 /* Pods_courtside_courtsideUITests.framework */,
-				541C58562EA2E9BCA4E3D1B9 /* Pods_courtsideTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -521,6 +514,7 @@
 				32EB17CF2D69AB4000BBAA50 /* AuthenticationView.swift in Sources */,
 				32EB17D02D69AB4000BBAA50 /* SignUpView.swift in Sources */,
 				32EB17C02D69AB3900BBAA50 /* GameManager.swift in Sources */,
+				320BA8752D6A955300E49277 /* RealTimeClipView.swift in Sources */,
 				E768A6D72D69B6C0006659A3 /* FriendsView.swift in Sources */,
 				32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */,
 				3287A8C52D6A25F000B8E60C /* GameModel.swift in Sources */,
