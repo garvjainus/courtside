@@ -9,15 +9,21 @@ import SwiftUI
 
 @main
 struct courtsideApp: App {
-    // Add state objects for app-wide data management
     @StateObject private var gameManager = GameManager()
     @StateObject private var analyticsManager = AnalyticsManager()
+    @StateObject private var authManager = AuthenticationManager()
     
     var body: some Scene {
         WindowGroup {
-            MainTabView()
-                .environmentObject(gameManager)
-                .environmentObject(analyticsManager)
+            if authManager.isAuthenticated {
+                MainTabView()
+                    .environmentObject(gameManager)
+                    .environmentObject(analyticsManager)
+                    .environmentObject(authManager)
+            } else {
+                AuthenticationView()
+                    .environmentObject(authManager)
+            }
         }
     }
 }
