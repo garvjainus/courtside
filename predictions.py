@@ -31,7 +31,7 @@ def process_frame(image_path: str):
     return detections
 
 def process_video(video_path: str):
-    """Processes video, detects ball, rink, and person, and predicts user ID if a person is detected."""
+    """Processes video, detects ball, rim, and person, and predicts user ID if a person is detected."""
     cap = cv2.VideoCapture(video_path)
     frame_results = []
     
@@ -41,7 +41,7 @@ def process_video(video_path: str):
             break
         
         results = yolo_model(frame)
-        frame_detections = {"ball": [], "rink": [], "user_id": []}
+        frame_detections = {"ball": [], "rim": [], "user_id": []}
         
         for box in results[0].boxes:
             cls = int(box.cls.item())
@@ -58,8 +58,8 @@ def process_video(video_path: str):
                     "bounding_box": [x_min, y_min, x_max, y_max],
                     "confidence": confidence
                 })
-            elif cls == 2:  # Rink detected
-                frame_detections["rink"].append({
+            elif cls == 2:  # rim detected
+                frame_detections["rim"].append({
                     "bounding_box": [x_min, y_min, x_max, y_max],
                     "confidence": confidence
                 })
@@ -97,7 +97,7 @@ def detect_shots(frame_detections):
     for frame in frame_detections:
         for ball in frame["ball"]:
             ball_box = ball["bounding_box"]
-            if is_near_goal(ball_box, frame["rink"]):
+            if is_near_goal(ball_box, frame["rim"]):
                 shots.append(ball_box)
     return shots
 
@@ -117,10 +117,10 @@ def is_near(box1, box2):
     x2_min, y2_min, x2_max, y2_max = box2
     return abs(x1_min - x2_min) < 30 and abs(y1_min - y2_min) < 30
 
-def is_near_goal(ball_box, rink_boxes):
+def is_near_goal(ball_box, rim_boxes):
     """Checks if the ball is near the goal."""
-    for rink in rink_boxes:
-        if is_near(ball_box, rink["bounding_box"]):
+    for rim in rim_boxes:
+        if is_near(ball_box, rim["bounding_box"]):
             return True
     return False
 
@@ -130,7 +130,7 @@ def is_goal(shot_box):
 
 @app.post("/predict_video/")
 async def predict_video(file: UploadFile = File(...)):
-    """Receives a video, runs YOLO prediction, and returns detections for ball, rink, and user ID, including actions."""
+    """Receives a video, runs YOLO prediction, and returns detections for ball, rim, and user ID, including actions."""
     video_path = f"uploads/{file.filename}"
     with open(video_path, "wb") as f:
         f.write(await file.read())
