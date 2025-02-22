@@ -26,6 +26,8 @@ struct StartGameView: View {
                         set: { newValue in
                             if playerNames.count <= index {
                                 playerNames.append(newValue)
+                            } else {
+                                playerNames[index] = newValue
                             }
                         }
                     ))
@@ -36,10 +38,22 @@ struct StartGameView: View {
             }
             
             ZStack {
+                #if targetEnvironment(simulator)
+                // Simulator placeholder
+                Rectangle()
+                    .fill(Color.gray)
+                    .frame(height: 300)
+                    .cornerRadius(10)
+                    .overlay(
+                        Text("Camera not available on simulator")
+                            .foregroundColor(.white)
+                    )
+                #else
                 CameraPreview(camera: cameraModel)
                     .frame(height: 300)
                     .cornerRadius(10)
                     .padding()
+                #endif
                 
                 if cameraModel.isRecording {
                     RoundedRectangle(cornerRadius: 10)
@@ -52,7 +66,6 @@ struct StartGameView: View {
                         )
                 }
             }
-            
             HStack {
                 Button(action: {
                     cameraModel.startRecording()
@@ -77,9 +90,9 @@ struct StartGameView: View {
             .padding()
             
             Button(action: {
-                trainModel()
+                uploadVideo() // Upload the video after recording
             }) {
-                Text("Train Model")
+                Text("Upload Video")
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.blue)
@@ -94,29 +107,73 @@ struct StartGameView: View {
         }
     }
     
-    func trainModel() {
-        let url = URL(string: "http://128.61.68.146:8000/train_model")!
+    // Function to upload the video to the FastAPI server
+    func uploadVideo() {
+        guard let videoURL = cameraModel.videoURL else {
+            print("No video recorded")
+            return
+        }
+
+        let url = URL(string: "http://128.61.68.146:8000/upload_video/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "accept")
         
+        // Create multipart form data
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var body = Data()
+
+        // Add the video file to the body
+        let videoData = try? Data(contentsOf: videoURL)
+        let videoFileName = "video.mov"
+        
+        if let videoData = videoData {
+            body.append("--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(videoFileName)\"\r\n".data(using: .utf8)!)
+            body.append("Content-Type: video/quicktime\r\n\r\n".data(using: .utf8)!)
+            body.append(videoData)
+            body.append("\r\n".data(using: .utf8)!)
+        }
+
+        // Add the player name to the body
+        let playerName = playerNames.first ?? "Player1" // Modify this as needed
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"player_names\"\r\n\r\n".data(using: .utf8)!)
+        body.append(playerName.data(using: .utf8)!)  // Convert the player name to Data
+        body.append("\r\n".data(using: .utf8)!)
+
+        // End boundary
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+
         let session = URLSession.shared
         session.dataTask(with: request) { data, response, error in
             if let error = error {
-                print("Error training model: \(error)")
+                print("Error uploading video: \(error)")
                 return
             }
-            print("Model training started.")
+            print("Video uploaded successfully.")
         }.resume()
     }
 }
 
+import AVFoundation
+
 class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDelegate {
-    private let session = AVCaptureSession()
+    public let session = AVCaptureSession()
     private let videoOutput = AVCaptureMovieFileOutput()
     private let queue = DispatchQueue(label: "camera.queue")
     @Published var isRecording = false
+    var videoURL: URL? // Store the URL of the recorded video
     
     func setup() {
+        #if targetEnvironment(simulator)
+        print("Camera not available on simulator")
+        return
+        #else
         session.beginConfiguration()
         
         guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
@@ -134,20 +191,31 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
         } catch {
             print("Error setting up camera: \(error)")
         }
+        #endif
     }
     
     func startRecording() {
+        #if targetEnvironment(simulator)
+        print("Camera not available on simulator")
+        return
+        #else
         guard !isRecording else { return }
         isRecording = true
         
         let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("tempVideo.mov")
         videoOutput.startRecording(to: tempURL, recordingDelegate: self)
+        #endif
     }
     
     func stopRecording() {
+        #if targetEnvironment(simulator)
+        print("Camera not available on simulator")
+        return
+        #else
         guard isRecording else { return }
         isRecording = false
         videoOutput.stopRecording()
+        #endif
     }
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
@@ -155,6 +223,7 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
             print("Recording error: \(error)")
         } else {
             print("Video saved at: \(outputFileURL)")
+            videoURL = outputFileURL // Store the URL of the video
         }
     }
 }
@@ -173,10 +242,16 @@ struct CameraPreview: UIViewRepresentable {
     
     func makeUIView(context: Context) -> VideoPreviewView {
         let view = VideoPreviewView()
-        if let session = camera.session {
+        #if !targetEnvironment(simulator)
+        let session = camera.session
+        if session.isRunning {
             view.previewLayer.session = session
             view.previewLayer.videoGravity = .resizeAspectFill
         }
+        #else
+        // Simulator fallback: Display a placeholder
+        view.backgroundColor = .gray
+        #endif
         return view
     }
     
