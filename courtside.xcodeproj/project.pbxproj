@@ -67,26 +67,12 @@
 		32EB17C82D69AB3F00BBAA50 /* AuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistoryView.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		32EB17D42D69E82E00BBAA50 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
-=======
-		75133508E66B6704EC493EBD /* Pods_courtside.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		805D7B95C70A7E9E259B3DE9 /* Pods-courtsideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.release.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.release.xcconfig"; sourceTree = "<group>"; };
-		94FBAB6E27CE197AE1C61A66 /* Pods_courtside_courtsideUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside_courtsideUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E6328DE62576B58F06B00E1 /* Pods-courtside-courtsideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.release.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.release.xcconfig"; sourceTree = "<group>"; };
-		A726AB740C82820907C0E007 /* Pods-courtsideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.debug.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.debug.xcconfig"; sourceTree = "<group>"; };
-		AC3A3BF465AD180FE110EA06 /* Pods_courtsideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtsideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
->>>>>>> 34623c47bf7959b2f16acefdbc11656d55b1be9b
 		E768A6C82D69B521006659A3 /* SideMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuType.swift; sourceTree = "<group>"; };
 		E768A6D22D69B6A7006659A3 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		E768A6D62D69B6C0006659A3 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		E768A6D82D69B6CF006659A3 /* StartGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameView.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
-		E768A6DA2D69B6DB006659A3 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		E9CE1DB864D51A99F38FE98A /* Pods-courtside-courtsideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.debug.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.debug.xcconfig"; sourceTree = "<group>"; };
->>>>>>> 34623c47bf7959b2f16acefdbc11656d55b1be9b
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
