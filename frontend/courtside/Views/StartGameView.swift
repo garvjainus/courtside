@@ -66,6 +66,11 @@ struct StartGameView: View {
                         )
                 }
             }
+            Button (action: {
+                cameraModel.switchCamera()
+            }) {
+                Label("Switch Camera", systemImage: "arrow.triangle.2.circlepath.camera")
+            }.buttonStyle(.borderedProminent)
             HStack {
                 Button(action: {
                     cameraModel.startRecording()
@@ -158,6 +163,21 @@ struct StartGameView: View {
             print("Video uploaded successfully.")
         }.resume()
     }
+    
+    func trainModel() {
+        let url = URL(string: "http://128.61.68.146:8000/train_model")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error training model: \(error)")
+                return
+            }
+            print("Model training started.")
+        }.resume()
+    }
 }
 
 import AVFoundation
@@ -176,7 +196,7 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
         #else
         session.beginConfiguration()
         
-        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else {
             print("No camera available")
             return
         }
@@ -194,6 +214,33 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
         #endif
     }
     
+    func switchCamera() {
+        #if targetEnvironment(simulator)
+        print("Camera not available on simulator")
+        return
+        #else
+        guard let currInput = session.inputs.first as? AVCaptureDeviceInput else {
+            session.commitConfiguration()
+            return
+        }
+        session.removeInput(currInput)
+        let newPos: AVCaptureDevice.Position = (currInput.device.position == .back) ? .front : .back
+        guard let newDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: newPos) else {
+            print("bye bye")
+            session.commitConfiguration()
+            return
+        }
+        do {
+            let newInput = try AVCaptureDeviceInput(device: newDevice)
+            if session.canAddInput(newInput) {
+                session.addInput(newInput)
+            }
+        } catch {
+            print("error w the camera")
+        }
+        #endif
+    }
+    
     func startRecording() {
         #if targetEnvironment(simulator)
         print("Camera not available on simulator")
@@ -202,7 +249,11 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
         guard !isRecording else { return }
         isRecording = true
         
-        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("tempVideo.mov")
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
+        let timestamp = formatter.string(from: Date())
+        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("recording-\(timestamp).mov")
+
         videoOutput.startRecording(to: tempURL, recordingDelegate: self)
         #endif
     }
@@ -244,10 +295,8 @@ struct CameraPreview: UIViewRepresentable {
         let view = VideoPreviewView()
         #if !targetEnvironment(simulator)
         let session = camera.session
-        if session.isRunning {
-            view.previewLayer.session = session
-            view.previewLayer.videoGravity = .resizeAspectFill
-        }
+        view.previewLayer.session = session
+        view.previewLayer.videoGravity = .resizeAspectFill
         #else
         // Simulator fallback: Display a placeholder
         view.backgroundColor = .gray
