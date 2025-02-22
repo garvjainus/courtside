@@ -54,7 +54,7 @@ def extract_frames(video_path: str, person_id: int):
     cap.release()
 
 @app.post("/upload_video/")
-async def upload_video(file: UploadFile = File(...)):
+async def upload_video(file: UploadFile = File(...), player_names: str = ""):
     video_path = os.path.join(UPLOAD_DIR, file.filename)
     with open(video_path, "wb") as f:
         f.write(await file.read())
@@ -62,12 +62,16 @@ async def upload_video(file: UploadFile = File(...)):
     person_id = len(os.listdir(DATASET_DIR))
     extract_frames(video_path, person_id)
     
+    if player_names:
+        with open("player_names.txt", "a") as f:
+            f.write(player_names + "\n")
+    
     return {"message": f"Video {file.filename} uploaded and frames extracted."}
 
 @app.post("/train_model/")
 async def train_model():
-    video_files = [f for f in os.listdir(UPLOAD_DIR) if f.endswith(('.mp4', '.avi', '.mov'))]
-    names = [os.path.splitext(f)[0] for f in video_files]
+    with open("player_names.txt", "r") as f:
+        names = [line.strip() for line in f.readlines()]
     
     data_yaml = {
         'train': './train',
