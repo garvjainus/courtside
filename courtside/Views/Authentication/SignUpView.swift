@@ -19,7 +19,6 @@ struct SignUpView: View {
                 TextField("Email", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.none)
-                    .autocorrectionDisabled()
                 
                 SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -69,7 +68,9 @@ struct SignUpView: View {
     }
 }
 
-#Preview {
-    SignUpView()
-        .environmentObject(AuthenticationManager())
-} 
+struct SignUpView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUpView()
+            .environmentObject(AuthenticationManager())
+    }
+}

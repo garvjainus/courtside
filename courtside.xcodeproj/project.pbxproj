@@ -14,6 +14,13 @@
 		32E2ED872D699E8E00E15762 /* courtsideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2ED862D699E8E00E15762 /* courtsideTests.swift */; };
 		32E2ED912D699E8E00E15762 /* courtsideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2ED902D699E8E00E15762 /* courtsideUITests.swift */; };
 		32E2ED932D699E8E00E15762 /* courtsideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2ED922D699E8E00E15762 /* courtsideUITestsLaunchTests.swift */; };
+		32EB17BF2D69AB3900BBAA50 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17BC2D69AB3900BBAA50 /* AuthenticationManager.swift */; };
+		32EB17C02D69AB3900BBAA50 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17BD2D69AB3900BBAA50 /* GameManager.swift */; };
+		32EB17CB2D69AB4000BBAA50 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C32D69AB3F00BBAA50 /* MainTabView.swift */; };
+		32EB17CC2D69AB4000BBAA50 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C42D69AB3F00BBAA50 /* SettingsView.swift */; };
+		32EB17CF2D69AB4000BBAA50 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C82D69AB3F00BBAA50 /* AuthenticationView.swift */; };
+		32EB17D02D69AB4000BBAA50 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */; };
+		32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +51,13 @@
 		32E2ED8C2D699E8E00E15762 /* courtsideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = courtsideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32E2ED902D699E8E00E15762 /* courtsideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courtsideUITests.swift; sourceTree = "<group>"; };
 		32E2ED922D699E8E00E15762 /* courtsideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courtsideUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		32EB17BC2D69AB3900BBAA50 /* AuthenticationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		32EB17BD2D69AB3900BBAA50 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		32EB17C32D69AB3F00BBAA50 /* MainTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		32EB17C42D69AB3F00BBAA50 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		32EB17C82D69AB3F00BBAA50 /* AuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +108,8 @@
 		32E2ED742D699E8D00E15762 /* courtside */ = {
 			isa = PBXGroup;
 			children = (
+				32EB17C22D69AB3F00BBAA50 /* Views */,
+				32EB17BB2D69AB3900BBAA50 /* Managers */,
 				32E2ED752D699E8D00E15762 /* courtsideApp.swift */,
 				32E2ED772D699E8D00E15762 /* ContentView.swift */,
 				32E2ED792D699E8E00E15762 /* Assets.xcassets */,
@@ -125,6 +141,35 @@
 				32E2ED922D699E8E00E15762 /* courtsideUITestsLaunchTests.swift */,
 			);
 			path = courtsideUITests;
+			sourceTree = "<group>";
+		};
+		32EB17BB2D69AB3900BBAA50 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				32EB17BC2D69AB3900BBAA50 /* AuthenticationManager.swift */,
+				32EB17BD2D69AB3900BBAA50 /* GameManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		32EB17C22D69AB3F00BBAA50 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				32EB17C32D69AB3F00BBAA50 /* MainTabView.swift */,
+				32EB17C42D69AB3F00BBAA50 /* SettingsView.swift */,
+				32EB17C72D69AB3F00BBAA50 /* Authentication */,
+				32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		32EB17C72D69AB3F00BBAA50 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				32EB17C82D69AB3F00BBAA50 /* AuthenticationView.swift */,
+				32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +302,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32EB17CC2D69AB4000BBAA50 /* SettingsView.swift in Sources */,
+				32EB17BF2D69AB3900BBAA50 /* AuthenticationManager.swift in Sources */,
+				32EB17CF2D69AB4000BBAA50 /* AuthenticationView.swift in Sources */,
+				32EB17D02D69AB4000BBAA50 /* SignUpView.swift in Sources */,
+				32EB17C02D69AB3900BBAA50 /* GameManager.swift in Sources */,
+				32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */,
 				32E2ED782D699E8D00E15762 /* ContentView.swift in Sources */,
 				32E2ED762D699E8D00E15762 /* courtsideApp.swift in Sources */,
+				32EB17CB2D69AB4000BBAA50 /* MainTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

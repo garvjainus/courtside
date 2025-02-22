@@ -5,11 +5,6 @@ struct MainTabView: View {
     
     var body: some View {
         TabView {
-            LiveGameView()
-                .tabItem {
-                    Label("Live Game", systemImage: "camera.fill")
-                }
-            
             GameHistoryView()
                 .tabItem {
                     Label("History", systemImage: "clock.fill")

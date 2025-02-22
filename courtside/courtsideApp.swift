@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct courtsideApp: App {
     @StateObject private var gameManager = GameManager()
-    @StateObject private var analyticsManager = AnalyticsManager()
     @StateObject private var authManager = AuthenticationManager()
     
     var body: some Scene {
@@ -18,7 +17,6 @@ struct courtsideApp: App {
             if authManager.isAuthenticated {
                 MainTabView()
                     .environmentObject(gameManager)
-                    .environmentObject(analyticsManager)
                     .environmentObject(authManager)
             } else {
                 AuthenticationView()

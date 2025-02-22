@@ -18,7 +18,6 @@ struct AuthenticationView: View {
                 TextField("Email", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.none)
-                    .autocorrectionDisabled()
                     .padding(.horizontal)
                 
                 // Password field
@@ -86,7 +85,9 @@ struct AuthenticationView: View {
     }
 }
 
-#Preview {
-    AuthenticationView()
-        .environmentObject(AuthenticationManager())
-} 
+struct AuthenticationView_Previews: PreviewProvider {
+    static var previews: some View {
+        AuthenticationView()
+            .environmentObject(AuthenticationManager())
+    }
+}
