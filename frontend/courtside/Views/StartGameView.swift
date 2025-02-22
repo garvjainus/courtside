@@ -1,13 +1,10 @@
 import SwiftUI
 import AVFoundation
-import CoreML
-import Vision
 
 struct StartGameView: View {
-    @State private var showPicker = false
-    @State private var selectedVideoURL: URL?
     @State private var numberOfPlayers: String = ""
     @State private var playerNames: [String] = [""]
+    @StateObject private var cameraModel = CameraModel()
     
     var body: some View {
         VStack {
@@ -15,21 +12,18 @@ struct StartGameView: View {
                 .foregroundColor(.white)
                 .font(.largeTitle)
                 .padding()
-
-            // Input for number of players
+            
             TextField("Enter number of players", text: $numberOfPlayers)
                 .keyboardType(.numberPad)
                 .padding()
                 .background(Color.white)
                 .cornerRadius(10)
-
-            // Loop to show text fields for each player's name
+            
             if let playersCount = Int(numberOfPlayers), playersCount > 0 {
                 ForEach(0..<playersCount, id: \.self) { index in
                     TextField("Enter name for player \(index + 1)", text: Binding(
                         get: { playerNames[safe: index] ?? "" },
                         set: { newValue in
-                            // Ensure the playerNames array can hold enough elements
                             if playerNames.count <= index {
                                 playerNames.append(newValue)
                             }
@@ -40,119 +34,153 @@ struct StartGameView: View {
                     .cornerRadius(10)
                 }
             }
-
-            // Add your start game content here
-            Button(action: {
-                // Trigger the video picker to select a video for uploading
-                showPicker.toggle()
-            }) {
-                Text("Start New Game")
-                    .foregroundColor(.black)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
-            }
-            .padding()
-
-            if let videoURL = selectedVideoURL {
-                // Show video preview (optional)
-                VideoPlayerView(videoURL: videoURL)
+            
+            ZStack {
+                CameraPreview(camera: cameraModel)
                     .frame(height: 300)
+                    .cornerRadius(10)
                     .padding()
-
-                // Button to upload the selected video for training
+                
+                if cameraModel.isRecording {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.red.opacity(0.3))
+                        .frame(width: 50, height: 50)
+                        .overlay(
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 20, height: 20)
+                        )
+                }
+            }
+            
+            HStack {
                 Button(action: {
-                    uploadVideoToServer(videoURL: videoURL)
+                    cameraModel.startRecording()
                 }) {
-                    Text("Upload Video for Training")
+                    Text("Start Recording")
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color.green)
                         .cornerRadius(10)
                 }
-                .padding()
+                
+                Button(action: {
+                    cameraModel.stopRecording()
+                }) {
+                    Text("Stop Recording")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(10)
+                }
             }
-
-            // Button to train model after all videos are uploaded
+            .padding()
+            
             Button(action: {
                 trainModel()
             }) {
                 Text("Train Model")
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.green)
+                    .background(Color.blue)
                     .cornerRadius(10)
             }
             .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.ignoresSafeArea())
-        .sheet(isPresented: $showPicker, content: {
-            // Present video picker here
-            VideoPicker(selectedVideoURL: $selectedVideoURL)
-        })
-    }
-
-    func uploadVideoToServer(videoURL: URL) {
-        guard let numberOfPlayers = Int(numberOfPlayers) else { return }
-
-        let url = URL(string: "http://128.61.68.146:8000/upload_video")! // Replace with your FastAPI server URL
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
-        let boundary = "Boundary-\(UUID().uuidString)"
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-        var body = Data()
-
-        if let videoData = try? Data(contentsOf: videoURL) {
-            let filename = videoURL.lastPathComponent
-            let contentDisposition = "Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n"
-            let contentType = "Content-Type: video/mp4\r\n\r\n"
-            
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append(contentDisposition.data(using: .utf8)!)
-            body.append(contentType.data(using: .utf8)!)
-            
-            body.append(videoData)
-            body.append("\r\n".data(using: .utf8)!)
+        .onAppear {
+            cameraModel.setup()
         }
-
-        let playerNamesString = playerNames.joined(separator: ",")
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"player_names\"\r\n\r\n".data(using: .utf8)!)
-        body.append(playerNamesString.data(using: .utf8)!)
-        body.append("\r\n".data(using: .utf8)!)
-
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-        request.httpBody = body
-
-        let session = URLSession.shared
-        session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error uploading video: \(error)")
-                return
-            }
-            print("Video uploaded successfully")
-        }.resume()
     }
-
+    
     func trainModel() {
-        let url = URL(string: "http://128.61.68.146:8000/train_model")! // Replace with your FastAPI server URL
+        let url = URL(string: "http://128.61.68.146:8000/train_model")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
-        // Send a request to trigger the model training
         let session = URLSession.shared
         session.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Error training model: \(error)")
                 return
             }
-            // Handle the response from the server (e.g., success message)
             print("Model training started.")
         }.resume()
     }
+}
+
+class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDelegate {
+    private let session = AVCaptureSession()
+    private let videoOutput = AVCaptureMovieFileOutput()
+    private let queue = DispatchQueue(label: "camera.queue")
+    @Published var isRecording = false
+    
+    func setup() {
+        session.beginConfiguration()
+        
+        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+            print("No camera available")
+            return
+        }
+        
+        do {
+            let input = try AVCaptureDeviceInput(device: device)
+            if session.canAddInput(input) { session.addInput(input) }
+            if session.canAddOutput(videoOutput) { session.addOutput(videoOutput) }
+            
+            session.commitConfiguration()
+            session.startRunning()
+        } catch {
+            print("Error setting up camera: \(error)")
+        }
+    }
+    
+    func startRecording() {
+        guard !isRecording else { return }
+        isRecording = true
+        
+        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("tempVideo.mov")
+        videoOutput.startRecording(to: tempURL, recordingDelegate: self)
+    }
+    
+    func stopRecording() {
+        guard isRecording else { return }
+        isRecording = false
+        videoOutput.stopRecording()
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if let error = error {
+            print("Recording error: \(error)")
+        } else {
+            print("Video saved at: \(outputFileURL)")
+        }
+    }
+}
+
+struct CameraPreview: UIViewRepresentable {
+    class VideoPreviewView: UIView {
+        override class var layerClass: AnyClass {
+            AVCaptureVideoPreviewLayer.self
+        }
+        var previewLayer: AVCaptureVideoPreviewLayer {
+            return layer as! AVCaptureVideoPreviewLayer
+        }
+    }
+    
+    let camera: CameraModel
+    
+    func makeUIView(context: Context) -> VideoPreviewView {
+        let view = VideoPreviewView()
+        if let session = camera.session {
+            view.previewLayer.session = session
+            view.previewLayer.videoGravity = .resizeAspectFill
+        }
+        return view
+    }
+    
+    func updateUIView(_ uiView: VideoPreviewView, context: Context) {}
 }
 
 extension Collection {
