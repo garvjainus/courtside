@@ -3,19 +3,19 @@ import SwiftUI
 struct SignUpView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var authManager: AuthenticationManager
-    
+
+    @State private var firstName = ""  // Added First Name Field
+    @State private var lastName = ""   // Added Last Name Field
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
-    @State private var username = ""
-    @State private var firstName = ""
-    @State private var lastName = ""
-    
+
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
             VStack(spacing: 20) {
                 
+                // Back Button
                 HStack {
                     Button(action: {
                         dismiss()
@@ -28,117 +28,78 @@ struct SignUpView: View {
                 }
                 .padding()
                 
-                Group {
-                    Text("Courtside AI")
-                        .font(.system(size: 40, weight: .bold, design: .monospaced))
-                        .foregroundColor(.white)
-                        .padding(.bottom, 10)
-                    
-                    Text("\"Play Like The Pros\"")
-                        .font(.title3)
-                        .italic()
-                        .foregroundColor(.white)
-                        .padding(.bottom, 20)
-                }
-
-                // User Input Fields
-                Group {
-                    TextField("Email", text: $email)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
-
-                    
-                    SecureField("Password", text: $password)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
-                    
-                    SecureField("Confirm Password", text: $confirmPassword)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
-                }
+                Text("Create Account")
+                    .font(.system(size: 30, weight: .bold))
+                    .foregroundColor(.white)
                 
-                // Additional Fields (Username, First & Last Name)
-                Group {
-                    TextField("Username", text: $username)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
-                    
-                    HStack {
-                        TextField("First Name", text: $firstName)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black) // Explicitly set text color to white
-                            .cornerRadius(10)
-                        
-                        TextField("Last Name", text: $lastName)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black) // Explicitly set text color to white
-                            .cornerRadius(10)
-                    }
+                // First Name Field
+                TextField("First Name", text: $firstName)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding()
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
                     .padding(.horizontal)
-                }
 
-                // Sign Up & Google Sign In Buttons
-                Group {
-                    Button(action: {
-                        if password == confirmPassword {
-                            authManager.signUp(email: email, password: password)
-                        } else {
-                            authManager.errorMessage = "Passwords do not match"
-                        }
-                    }) {
-                        Text("Sign Up")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
-                    }
+                // Last Name Field
+                TextField("Last Name", text: $lastName)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding()
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
                     .padding(.horizontal)
-                    
-                    Button(action: {
-                        authManager.signInWithGoogle()
-                    }) {
-                        HStack {
-                            Image("google")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 30)
-                            Text("Sign in with Google")
+
+                // Email Field
+                TextField("Email", text: $email)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding()
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                
+                // Password Field
+                SecureField("Password", text: $password)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding()
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                
+                // Confirm Password Field
+                SecureField("Confirm Password", text: $confirmPassword)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding()
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                
+                // Sign Up Button
+                Button(action: {
+                    if password == confirmPassword {
+                        authManager.signUp(email: email, password: password, firstName: firstName, lastName: lastName) { success in
+                            DispatchQueue.main.async {
+                                if success {
+                                    dismiss()
+                                }
+                            }
                         }
+                    } else {
+                        authManager.errorMessage = "Passwords do not match"
+                    }
+                }) {
+                    Text("Sign Up")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.white)
                         .foregroundColor(.black)
                         .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
-                    }
-                    .padding(.horizontal)
                 }
+                .padding(.horizontal)
                 
-                // Loading Indicator & Error Messages
                 if authManager.isLoading {
                     ProgressView()
                         .foregroundColor(.white)
@@ -153,7 +114,6 @@ struct SignUpView: View {
             .padding()
         }
     }
-
 }
 
 struct SignUpView_Previews: PreviewProvider {

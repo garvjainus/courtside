@@ -3,6 +3,7 @@ import SwiftUI
 struct SideMenu: View {
     var width: CGFloat = 250
     var isOpen: Bool
+    @EnvironmentObject var authManager: AuthenticationManager  // Access auth manager
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -22,6 +23,31 @@ struct SideMenu: View {
                 Text("Start Game")
             }
             Spacer()
+
+            // MARK: - Sign Out Button
+            Button(action: {
+                authManager.signOut { success in
+                    if success {
+                        print("✅ Signed out successfully")
+                    } else {
+                        print("❌ Sign out failed")
+                    }
+                }
+            }) {
+                HStack {
+                    Image(systemName: "arrow.right.circle.fill")
+                        .foregroundColor(.red)
+                    Text("Sign Out")
+                        .foregroundColor(.red)
+                        .bold()
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .background(Color.white)
+            .cornerRadius(10)
+            .padding(.horizontal, 20)
+
         }
         .padding(.top, 50)
         .padding(.horizontal, 20)
@@ -35,8 +61,9 @@ struct SideMenu: View {
 
 struct SideMenu_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView { // Embed in NavigationView for preview purposes.
+        NavigationView {
             SideMenu(isOpen: true)
+                .environmentObject(AuthenticationManager()) // Provide EnvironmentObject for preview
         }
     }
 }

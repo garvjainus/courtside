@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0612EB189AE0579F707100E4 /* Pods_courtside.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F3624BA8D12B8BCA06881C /* Pods_courtside.framework */; };
 		1C1D09CA78DA1D0F133C7859 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		3287A8C12D6A24DB00B8E60C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */; };
+		3287A8C32D6A25DD00B8E60C /* ShotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C22D6A25DD00B8E60C /* ShotModel.swift */; };
+		3287A8C52D6A25F000B8E60C /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C42D6A25F000B8E60C /* GameModel.swift */; };
+		3287A8C72D6A260100B8E60C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C62D6A260100B8E60C /* UserModel.swift */; };
+		3293ADA42D6A0EBC0061A7EB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3293ADA32D6A0EBC0061A7EB /* GoogleService-Info.plist */; };
 		32E2ED762D699E8D00E15762 /* courtsideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2ED752D699E8D00E15762 /* courtsideApp.swift */; };
 		32E2ED782D699E8D00E15762 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2ED772D699E8D00E15762 /* ContentView.swift */; };
 		32E2ED7A2D699E8E00E15762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E2ED792D699E8E00E15762 /* Assets.xcassets */; };
@@ -23,6 +29,7 @@
 		32EB17D02D69AB4000BBAA50 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */; };
 		32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */; };
 		32EB17DB2D69FFBA00BBAA50 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */; };
+
 		62E68D5F2D6A3420002FE46C /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E68D5E2D6A3420002FE46C /* VideoPicker.swift */; };
 		62E68D632D6A34D2002FE46C /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E68D622D6A34D2002FE46C /* VideoPlayerView.swift */; };
 		D39E129ED65CFB3CFCBC3430 /* Pods_courtside_courtsideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECB65C827FED1FD6ECC87D1 /* Pods_courtside_courtsideUITests.framework */; };
@@ -32,7 +39,6 @@
 		E768A6D52D69B6B3006659A3 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */; };
 		E768A6D72D69B6C0006659A3 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D62D69B6C0006659A3 /* FriendsView.swift */; };
 		E768A6D92D69B6CF006659A3 /* StartGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D82D69B6CF006659A3 /* StartGameView.swift */; };
-		F26321E2CC5B7DBD6070F06F /* Pods_courtsideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3423B982235EB7F9C3D2D813 /* Pods_courtsideTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,10 +59,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0F05BBABF9520FBD0E39AA16 /* Pods-courtside.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside.debug.xcconfig"; path = "Target Support Files/Pods-courtside/Pods-courtside.debug.xcconfig"; sourceTree = "<group>"; };
-		1D1F67A63B60DFD9466C1876 /* Pods-courtside.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside.release.xcconfig"; path = "Target Support Files/Pods-courtside/Pods-courtside.release.xcconfig"; sourceTree = "<group>"; };
-		20665A10F0DE66A1EBACF728 /* Pods-courtsideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.debug.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.debug.xcconfig"; sourceTree = "<group>"; };
-		271A0B9A8C94D7B818986AE0 /* Pods-courtsideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.release.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.release.xcconfig"; sourceTree = "<group>"; };
+		07F3624BA8D12B8BCA06881C /* Pods_courtside.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FD2CF0963BB2059FB588009 /* Pods-courtsideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.debug.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2E315048AC9D4710C23AF222 /* Pods-courtsideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.release.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.release.xcconfig"; sourceTree = "<group>"; };
+		3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		3287A8C22D6A25DD00B8E60C /* ShotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotModel.swift; sourceTree = "<group>"; };
+		3287A8C42D6A25F000B8E60C /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		3287A8C62D6A260100B8E60C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		3293ADA32D6A0EBC0061A7EB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		32E2ED722D699E8D00E15762 /* courtside.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = courtside.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32E2ED752D699E8D00E15762 /* courtsideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courtsideApp.swift; sourceTree = "<group>"; };
 		32E2ED772D699E8D00E15762 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,6 +85,9 @@
 		32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistoryView.swift; sourceTree = "<group>"; };
 		32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
+		3B42BC9DCAC8330FDDD6BD0D /* Pods-courtside.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside.debug.xcconfig"; path = "Target Support Files/Pods-courtside/Pods-courtside.debug.xcconfig"; sourceTree = "<group>"; };
+		E03074F4770C2AD0852E5AC7 /* Pods-courtside-courtsideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.debug.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E100B1D6DE1AE7EFACE6056F /* Pods-courtside-courtsideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.release.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3423B982235EB7F9C3D2D813 /* Pods_courtsideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtsideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F137C697F53195491F2869 /* Pods-courtside-courtsideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.release.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		62E68D5E2D6A3420002FE46C /* VideoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
@@ -87,7 +100,8 @@
 		E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		E768A6D62D69B6C0006659A3 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		E768A6D82D69B6CF006659A3 /* StartGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameView.swift; sourceTree = "<group>"; };
-		EA8086B135D9E23DBC29126D /* Pods_courtside.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8AB89428E2A699661BC0293 /* Pods_courtside_courtsideUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside_courtsideUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF2D72EB349B81E60D59814D /* Pods-courtside.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside.release.xcconfig"; path = "Target Support Files/Pods-courtside/Pods-courtside.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6047282FE1F9F50AFE5D51B /* Pods_courtside.framework in Frameworks */,
+				0612EB189AE0579F707100E4 /* Pods_courtside.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F26321E2CC5B7DBD6070F06F /* Pods_courtsideTests.framework in Frameworks */,
+				BA565BA813E017BBF739DF00 /* Pods_courtsideTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C1D09CA78DA1D0F133C7859 /* (null) in Frameworks */,
-				D39E129ED65CFB3CFCBC3430 /* Pods_courtside_courtsideUITests.framework in Frameworks */,
+				9853282713F79C5386D385E8 /* Pods_courtside_courtsideUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,13 +136,14 @@
 		32E2ED692D699E8D00E15762 = {
 			isa = PBXGroup;
 			children = (
+				3293ADA32D6A0EBC0061A7EB /* GoogleService-Info.plist */,
 				62E68D642D6A3E52002FE46C /* Info.plist */,
 				32E2ED742D699E8D00E15762 /* courtside */,
 				32E2ED852D699E8E00E15762 /* courtsideTests */,
 				32E2ED8F2D699E8E00E15762 /* courtsideUITests */,
 				32E2ED732D699E8D00E15762 /* Products */,
 				344A5F535CC0696B37BC2AFF /* Pods */,
-				3A3DC95DAA98091C8917945C /* Frameworks */,
+				C980602D3E8E197F2831AE71 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,6 +201,7 @@
 			children = (
 				32EB17BC2D69AB3900BBAA50 /* AuthenticationManager.swift */,
 				32EB17BD2D69AB3900BBAA50 /* GameManager.swift */,
+				3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -220,22 +236,22 @@
 		344A5F535CC0696B37BC2AFF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0F05BBABF9520FBD0E39AA16 /* Pods-courtside.debug.xcconfig */,
-				1D1F67A63B60DFD9466C1876 /* Pods-courtside.release.xcconfig */,
-				B8149E43BE5D906519ED7A4A /* Pods-courtside-courtsideUITests.debug.xcconfig */,
-				35F137C697F53195491F2869 /* Pods-courtside-courtsideUITests.release.xcconfig */,
-				20665A10F0DE66A1EBACF728 /* Pods-courtsideTests.debug.xcconfig */,
-				271A0B9A8C94D7B818986AE0 /* Pods-courtsideTests.release.xcconfig */,
+				3B42BC9DCAC8330FDDD6BD0D /* Pods-courtside.debug.xcconfig */,
+				FF2D72EB349B81E60D59814D /* Pods-courtside.release.xcconfig */,
+				E03074F4770C2AD0852E5AC7 /* Pods-courtside-courtsideUITests.debug.xcconfig */,
+				E100B1D6DE1AE7EFACE6056F /* Pods-courtside-courtsideUITests.release.xcconfig */,
+				0FD2CF0963BB2059FB588009 /* Pods-courtsideTests.debug.xcconfig */,
+				2E315048AC9D4710C23AF222 /* Pods-courtsideTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		3A3DC95DAA98091C8917945C /* Frameworks */ = {
+		C980602D3E8E197F2831AE71 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA8086B135D9E23DBC29126D /* Pods_courtside.framework */,
-				8ECB65C827FED1FD6ECC87D1 /* Pods_courtside_courtsideUITests.framework */,
-				3423B982235EB7F9C3D2D813 /* Pods_courtsideTests.framework */,
+				07F3624BA8D12B8BCA06881C /* Pods_courtside.framework */,
+				E8AB89428E2A699661BC0293 /* Pods_courtside_courtsideUITests.framework */,
+				541C58562EA2E9BCA4E3D1B9 /* Pods_courtsideTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -244,6 +260,9 @@
 			isa = PBXGroup;
 			children = (
 				E768A6C82D69B521006659A3 /* SideMenuType.swift */,
+				3287A8C22D6A25DD00B8E60C /* ShotModel.swift */,
+				3287A8C42D6A25F000B8E60C /* GameModel.swift */,
+				3287A8C62D6A260100B8E60C /* UserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -255,17 +274,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32E2ED962D699E8E00E15762 /* Build configuration list for PBXNativeTarget "courtside" */;
 			buildPhases = (
-				472910385491CCB9A1078518 /* [CP] Check Pods Manifest.lock */,
+				4C6E10B953FC12D2ED2F1CA5 /* [CP] Check Pods Manifest.lock */,
 				32E2ED6E2D699E8D00E15762 /* Sources */,
 				32E2ED6F2D699E8D00E15762 /* Frameworks */,
 				32E2ED702D699E8D00E15762 /* Resources */,
-				C93B4A1DF7C9B4B80261DACB /* [CP] Embed Pods Frameworks */,
+				58045D6201768359F35885AC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = courtside;
+			packageProductDependencies = (
+			);
 			productName = courtside;
 			productReference = 32E2ED722D699E8D00E15762 /* courtside.app */;
 			productType = "com.apple.product-type.application";
@@ -274,7 +295,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32E2ED992D699E8E00E15762 /* Build configuration list for PBXNativeTarget "courtsideTests" */;
 			buildPhases = (
-				BF960CED3A48CAC103C14F91 /* [CP] Check Pods Manifest.lock */,
+				9EB8DB62BEC22D87F134F315 /* [CP] Check Pods Manifest.lock */,
 				32E2ED7E2D699E8E00E15762 /* Sources */,
 				32E2ED7F2D699E8E00E15762 /* Frameworks */,
 				32E2ED802D699E8E00E15762 /* Resources */,
@@ -293,11 +314,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32E2ED9C2D699E8E00E15762 /* Build configuration list for PBXNativeTarget "courtsideUITests" */;
 			buildPhases = (
-				0AC4DA1F03EF3786819AF826 /* [CP] Check Pods Manifest.lock */,
+				CBC21968FEB3A12E52008831 /* [CP] Check Pods Manifest.lock */,
 				32E2ED882D699E8E00E15762 /* Sources */,
 				32E2ED892D699E8E00E15762 /* Frameworks */,
 				32E2ED8A2D699E8E00E15762 /* Resources */,
-				67B94F6CAB73F67BAA2F7BE6 /* [CP] Embed Pods Frameworks */,
+				F712F3CCCD3CB9F848B464F9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -341,6 +362,8 @@
 				Base,
 			);
 			mainGroup = 32E2ED692D699E8D00E15762;
+			packageReferences = (
+			);
 			productRefGroup = 32E2ED732D699E8D00E15762 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -359,6 +382,7 @@
 			files = (
 				32E2ED7D2D699E8E00E15762 /* Preview Assets.xcassets in Resources */,
 				32E2ED7A2D699E8E00E15762 /* Assets.xcassets in Resources */,
+				3293ADA42D6A0EBC0061A7EB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,29 +403,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0AC4DA1F03EF3786819AF826 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-courtside-courtsideUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		472910385491CCB9A1078518 /* [CP] Check Pods Manifest.lock */ = {
+		4C6E10B953FC12D2ED2F1CA5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -423,24 +425,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		67B94F6CAB73F67BAA2F7BE6 /* [CP] Embed Pods Frameworks */ = {
+		58045D6201768359F35885AC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-courtside/Pods-courtside-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-courtside/Pods-courtside-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-courtside/Pods-courtside-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BF960CED3A48CAC103C14F91 /* [CP] Check Pods Manifest.lock */ = {
+		9EB8DB62BEC22D87F134F315 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -462,21 +464,43 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C93B4A1DF7C9B4B80261DACB /* [CP] Embed Pods Frameworks */ = {
+		CBC21968FEB3A12E52008831 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-courtside/Pods-courtside-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-courtside/Pods-courtside-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-courtside-courtsideUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-courtside/Pods-courtside-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F712F3CCCD3CB9F848B464F9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -487,6 +511,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E768A6D92D69B6CF006659A3 /* StartGameView.swift in Sources */,
+				3287A8C32D6A25DD00B8E60C /* ShotModel.swift in Sources */,
 				62E68D5F2D6A3420002FE46C /* VideoPicker.swift in Sources */,
 				E768A6D52D69B6B3006659A3 /* AnalyticsView.swift in Sources */,
 				62E68D632D6A34D2002FE46C /* VideoPlayerView.swift in Sources */,
@@ -498,11 +523,14 @@
 				32EB17C02D69AB3900BBAA50 /* GameManager.swift in Sources */,
 				E768A6D72D69B6C0006659A3 /* FriendsView.swift in Sources */,
 				32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */,
+				3287A8C52D6A25F000B8E60C /* GameModel.swift in Sources */,
 				32E2ED782D699E8D00E15762 /* ContentView.swift in Sources */,
 				E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */,
 				32EB17DB2D69FFBA00BBAA50 /* SideMenuView.swift in Sources */,
+				3287A8C72D6A260100B8E60C /* UserModel.swift in Sources */,
 				32E2ED762D699E8D00E15762 /* courtsideApp.swift in Sources */,
 				32EB17CB2D69AB4000BBAA50 /* HomeView.swift in Sources */,
+				3287A8C12D6A24DB00B8E60C /* FirestoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,7 +687,7 @@
 		};
 		32E2ED972D699E8E00E15762 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F05BBABF9520FBD0E39AA16 /* Pods-courtside.debug.xcconfig */;
+			baseConfigurationReference = 3B42BC9DCAC8330FDDD6BD0D /* Pods-courtside.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -692,7 +720,7 @@
 		};
 		32E2ED982D699E8E00E15762 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D1F67A63B60DFD9466C1876 /* Pods-courtside.release.xcconfig */;
+			baseConfigurationReference = FF2D72EB349B81E60D59814D /* Pods-courtside.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -725,7 +753,7 @@
 		};
 		32E2ED9A2D699E8E00E15762 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20665A10F0DE66A1EBACF728 /* Pods-courtsideTests.debug.xcconfig */;
+			baseConfigurationReference = 0FD2CF0963BB2059FB588009 /* Pods-courtsideTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -746,7 +774,7 @@
 		};
 		32E2ED9B2D699E8E00E15762 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 271A0B9A8C94D7B818986AE0 /* Pods-courtsideTests.release.xcconfig */;
+			baseConfigurationReference = 2E315048AC9D4710C23AF222 /* Pods-courtsideTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -767,7 +795,7 @@
 		};
 		32E2ED9D2D699E8E00E15762 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8149E43BE5D906519ED7A4A /* Pods-courtside-courtsideUITests.debug.xcconfig */;
+			baseConfigurationReference = E03074F4770C2AD0852E5AC7 /* Pods-courtside-courtsideUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -786,7 +814,7 @@
 		};
 		32E2ED9E2D699E8E00E15762 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35F137C697F53195491F2869 /* Pods-courtside-courtsideUITests.release.xcconfig */;
+			baseConfigurationReference = E100B1D6DE1AE7EFACE6056F /* Pods-courtside-courtsideUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
