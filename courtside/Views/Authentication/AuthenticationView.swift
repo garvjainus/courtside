@@ -18,18 +18,27 @@ struct AuthenticationView: View {
                     .padding(.bottom, 20)
                 
                 // Smiley Faces (Placeholder)
-                HStack(spacing: 30) {
-                    Image(systemName: "face.smiling")
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
-                    Image(systemName: "face.smiling")
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
-                    Image(systemName: "face.smiling")
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
+                HStack(spacing: -20) { // Negative spacing for slight overlap
+                    Image("curry")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 110, height: 110)
+                        .offset(y: 10) // Push Curry slightly down
+
+                    ZStack {
+                        Image("lebron (1)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 140, height: 140)
+                            .zIndex(1) // Bring to front
+                    }
+
+                    Image("shai")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 110, height: 110)
+                        .offset(y: 10) // Push Shai slightly down
                 }
-                .padding(.bottom, 10)
                 
                 // Tagline
                 Text("\"Play Like The Pros\"")
@@ -44,7 +53,7 @@ struct AuthenticationView: View {
                     .background(Color.white)
                     .foregroundColor(.black)
                     .cornerRadius(10)
-                    .padding(.horizont	al)
+                    .padding(.horizontal)
                 
                 // Password Field
                 SecureField("Password", text: $password)
