@@ -82,8 +82,10 @@ struct AuthenticationView: View {
                     authManager.signInWithGoogle()
                 }) {
                     HStack {
-                        Image(systemName: "g.circle.fill")
-                            .foregroundColor(.red)
+                        Image("google")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
                         Text("Sign in with Google")
                     }
                     .frame(maxWidth: .infinity)
