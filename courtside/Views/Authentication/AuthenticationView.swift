@@ -41,17 +41,17 @@ struct AuthenticationView: View {
                 TextField("Email", text: $email)
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding()
-                    .background(Color.white.opacity(0.2))
-                    .foregroundColor(.white)
+                    .background(Color.white)
+                    .foregroundColor(.black)
                     .cornerRadius(10)
-                    .padding(.horizontal)
+                    .padding(.horizont	al)
                 
                 // Password Field
                 SecureField("Password", text: $password)
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding()
-                    .background(Color.white.opacity(0.2))
-                    .foregroundColor(.white)
+                    .background(Color.white)
+                    .foregroundColor(.black)
                     .cornerRadius(10)
                     .padding(.horizontal)
                 
