@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct courtsideApp: App {
+    // Add state objects for app-wide data management
+    @StateObject private var gameManager = GameManager()
+    @StateObject private var analyticsManager = AnalyticsManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabView()
+                .environmentObject(gameManager)
+                .environmentObject(analyticsManager)
         }
     }
 }
