@@ -1,19 +1,44 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var gameManager: GameManager
-    
+    @State private var showMenu = false // Track menu state
+
     var body: some View {
-        TabView {
-            GameHistoryView()
-                .tabItem {
-                    Label("History", systemImage: "clock.fill")
+        NavigationView {
+            ZStack {
+                // Main Content
+                VStack {
+                    Text("🏀 Welcome to Courtside AI!")
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .padding()
                 }
-            
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gear")
-                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.ignoresSafeArea())
+                
+                .navigationBarTitle("", displayMode: .inline)
+                    
+                .navigationBarItems(leading: Button(action: {
+                    withAnimation {
+                        showMenu.toggle()
+                    }
+                }) {
+                    Image(systemName: "line.horizontal.3")
+                        .foregroundColor(.white)
+                })
+
+                // Side Menu (Slide In/Out)
+                SideMenuView(showMenu: $showMenu)
+            }
         }
     }
-} 
+}
+
+// 🔹 Side Menu View
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+            .preferredColorScheme(.dark)
+    }
+}

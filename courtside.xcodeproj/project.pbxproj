@@ -21,12 +21,12 @@
 		32EB17CF2D69AB4000BBAA50 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C82D69AB3F00BBAA50 /* AuthenticationView.swift */; };
 		32EB17D02D69AB4000BBAA50 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */; };
 		32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */; };
+		32EB17D52D69E82E00BBAA50 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17D42D69E82E00BBAA50 /* SideMenuView.swift */; };
 		E768A6C92D69B521006659A3 /* SideMenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6C82D69B521006659A3 /* SideMenuType.swift */; };
 		E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D22D69B6A7006659A3 /* StatsView.swift */; };
 		E768A6D52D69B6B3006659A3 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */; };
 		E768A6D72D69B6C0006659A3 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D62D69B6C0006659A3 /* FriendsView.swift */; };
 		E768A6D92D69B6CF006659A3 /* StartGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D82D69B6CF006659A3 /* StartGameView.swift */; };
-		E768A6DB2D69B6DB006659A3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6DA2D69B6DB006659A3 /* AccountView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,12 +64,12 @@
 		32EB17C82D69AB3F00BBAA50 /* AuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistoryView.swift; sourceTree = "<group>"; };
+		32EB17D42D69E82E00BBAA50 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		E768A6C82D69B521006659A3 /* SideMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuType.swift; sourceTree = "<group>"; };
 		E768A6D22D69B6A7006659A3 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		E768A6D62D69B6C0006659A3 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		E768A6D82D69B6CF006659A3 /* StartGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameView.swift; sourceTree = "<group>"; };
-		E768A6DA2D69B6DB006659A3 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +176,7 @@
 				E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */,
 				E768A6D62D69B6C0006659A3 /* FriendsView.swift */,
 				E768A6D82D69B6CF006659A3 /* StartGameView.swift */,
-				E768A6DA2D69B6DB006659A3 /* AccountView.swift */,
+				32EB17D42D69E82E00BBAA50 /* SideMenuView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -338,9 +338,9 @@
 				32EB17C02D69AB3900BBAA50 /* GameManager.swift in Sources */,
 				E768A6D72D69B6C0006659A3 /* FriendsView.swift in Sources */,
 				32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */,
-				E768A6DB2D69B6DB006659A3 /* AccountView.swift in Sources */,
 				32E2ED782D699E8D00E15762 /* ContentView.swift in Sources */,
 				E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */,
+				32EB17D52D69E82E00BBAA50 /* SideMenuView.swift in Sources */,
 				32E2ED762D699E8D00E15762 /* courtsideApp.swift in Sources */,
 				32EB17CB2D69AB4000BBAA50 /* HomeView.swift in Sources */,
 			);
