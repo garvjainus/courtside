@@ -1,0 +1,25 @@
+# Ignore virtual environments
+venv/
+.env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# Ignore model weights and datasets
+*.pth
+*.pt
+*.h5
+*.onnx
+*.weights
+
+# Ignore generated training data
+trained_persons/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
