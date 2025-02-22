@@ -1,3 +1,4 @@
+import random
 import cv2
 import torch
 import os
@@ -5,177 +6,172 @@ from ultralytics import YOLO
 import numpy as np
 import shutil
 from pathlib import Path
+from deep_sort_realtime.deepsort_tracker import DeepSort 
+import yaml
 
 
 # Directory to store trained identities
-TRAINED_PERSON_DIR = "trained_persons"
-os.makedirs(TRAINED_PERSON_DIR, exist_ok=True)
+DATASET_DIR = "dataset"
+for split in ["train", "test", "valid"]:
+    os.makedirs(f"{DATASET_DIR}/{split}/images", exist_ok=True)
+    os.makedirs(f"{DATASET_DIR}/{split}/labels", exist_ok=True)
 
-def iou(box1, box2):
-    """Calculate Intersection over Union (IoU) of two bounding boxes."""
-    x1, y1, x2, y2 = box1
-    xx1, yy1, xx2, yy2 = box2
+yolo_model = YOLO("yolov8n.pt")
+# tracker = DeepSort(max_age=30, n_init=3, nn_budget=70)
 
-    # Calculate the intersection area
-    inter_area = max(0, min(x2, xx2) - max(x1, xx1)) * max(0, min(y2, yy2) - max(y1, yy1))
-
-    # Calculate the union area
-    box1_area = (x2 - x1) * (y2 - y1)
-    box2_area = (xx2 - xx1) * (yy2 - yy1)
-
-    return inter_area / float(box1_area + box2_area - inter_area)
-
-def train_person_tracking(video_path: str, model_path: str = "mode/yolov8n.pt"):
-    """Detects persons in a video, extracts frames, and matches persons using IoU for tracking."""
-    
-    # Load YOLOv8 model
-    model = YOLO(model_path)
+def extract_frames(video_path: str, person_id: int):
     cap = cv2.VideoCapture(video_path)
     frame_id = 0
-    person_frames = []  # List to store frames with detected persons
-    tracked_boxes = []  # List of boxes for each detected person
 
-    # List to keep track of the identities of detected persons
-    person_id_map = {}
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+    
+        dataset_split = random.choices(["train", "test", "valid"], [0.7, 0.15, 0.15])[0]
+        image_filename = f"person_{person_id}_frame_{frame_id}.jpg"
+        label_filename = f"person_{person_id}_frame_{frame_id}.txt"
+        image_path = f"{DATASET_DIR}/{dataset_split}/images/{image_filename}"
+        label_path = f"{DATASET_DIR}/{dataset_split}/labels/{label_filename}"
+
+        cv2.imwrite(image_path, frame)
+
+        height, width, _ = frame.shape
+
+        results = yolo_model(frame)
+        detections = results[0].boxes
+
+        if len(detections) > 0:
+            cv2.imwrite(image_path, frame)
+
+            with open(label_path, "w") as f:
+                for box in detections:
+                    cls = int(box.cls.item())
+                    if cls == 0:
+                        x_min, y_min, x_max, y_max = box.xyxy[0].tolist()
+
+                        x_center = ((x_min + x_max) / 2) / width
+                        y_center = ((y_min + y_max) / 2) / height
+                        norm_width = (x_max - x_min) / width
+                        norm_height = (y_max - y_min) / height
+
+                        f.write(f"{person_id} {x_center} {y_center} {norm_width} {norm_height}\n")
+
+        frame_id += 1
+
+    cap.release()
+    print(f"Processed {video_path} (Person {person_id})")
+
+
+def process_videos(video_folder: str):
+    videos = [f for f in os.listdir(video_folder) if f.endswith(('.mp4', '.avi', '.mov'))]
+    nc = len(videos)
+    names = [os.path.splitext(video)[0] for video in videos]
+    data_yaml = {
+        'train': './train',
+        'val': './valid',
+        'test': './test',
+        'nc': nc,
+        'names': names
+    }
+
+    with open('dataset/data.yaml', 'w') as f:
+        yaml.dump(data_yaml, f, default_flow_style=False)
+
+
+    
+    for person_id, video in enumerate(videos):
+        video_path = os.path.join(video_folder, video)
+        extract_frames(video_path, person_id)
+
+    print("all videos processed and labeled correctly")
+
+
+process_videos("videos")
+
+model = YOLO("yolov8n.pt")
+model.train(data="dataset/data.yaml", epochs=10, imgsz=640, name="person_classifier")
+
+
+'''
+def train_person_tracking(video_path: str):
+    """Detects persons in a video, extracts frames, and assigns unique IDs for tracking & re-ID training."""
+
+    cap = cv2.VideoCapture(video_path)
+    frame_id = 0
 
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
             break
 
-        results = model(frame)  # Run YOLO inference
+        results = model(frame)
         detections = []
         
-        # Process detections
         for result in results:
-            for box in result.boxes:  # Iterate over detections
-                if int(box.cls) == 0:  # Class 0 corresponds to 'person'
+            for box in result.boxes:
+                if int(box.cls) == 0:
                     x1, y1, x2, y2 = map(int, box.xyxy[0])
                     conf = box.conf[0].item()
-                    detections.append([x1, y1, x2, y2, conf])
+                    detections.append(([x1, y1, x2, y2], conf, "person"))
 
-        # Match detections from the current frame with tracked boxes from previous frames
-        new_tracked_boxes = []
-        for det in detections:
-            x1, y1, x2, y2, conf = det
-            matched = False
-            for track_id, prev_box in tracked_boxes:
-                if iou([x1, y1, x2, y2], prev_box) > 0.5:  # IoU threshold to match
-                    new_tracked_boxes.append((track_id, [x1, y1, x2, y2]))
-                    matched = True
-                    break
-            if not matched:
-                # If no match found, create a new tracking ID
-                new_track_id = len(person_id_map) + 1
-                person_id_map[new_track_id] = (x1, y1, x2, y2)
-                new_tracked_boxes.append((new_track_id, [x1, y1, x2, y2]))
-                
-            # Save the frame whenever a person is detected or tracked
-            person_crop = frame[y1:y2, x1:x2]
-            person_frames.append(person_crop)
+        tracks = tracker.update_tracks(detections, frame=frame)
 
-        tracked_boxes = new_tracked_boxes
+        for track in tracks:
+            if track.is_confirmed():
+                track_id = track.track_id
+                x1, y1, x2, y2 = map(int, track.to_ltwh())
 
-        # Display the frame with tracked people
-        for track_id, bbox in tracked_boxes:
-            x1, y1, x2, y2 = bbox
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.putText(frame, f"ID: {track_id}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                person_crop = frame[y1:y2, x1:x2]
+                person_folder = os.path.join(TRAINED_PERSON_DIR, f"person_{track_id}")
+                os.makedirs(person_folder, exist_ok=True)
+                cv2.imwrite(os.path.join(person_folder, f"frame_{frame_id}.jpg"), person_crop)
+
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.putText(frame, f"ID: {track_id}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
         cv2.imshow("Tracking", frame)
+        frame_id += 1
 
-        # Exit condition
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
-        frame_id += 1
 
     cap.release()
     cv2.destroyAllWindows()
 
-    if not person_frames:
-        print("No person detected in the video.")
-        return
+def prepare_data_for_yolo(directory: str):
+    """Prepares dataset for YOLOv8 training with person-specific labels."""
     
-    # Create a unique person ID
-    person_id = len(os.listdir(TRAINED_PERSON_DIR)) + 1
-    person_folder = os.path.join(TRAINED_PERSON_DIR, f"person_{person_id}")
-    os.makedirs(person_folder, exist_ok=True)
-    
-    # Save frames for training
-    for i, frame in enumerate(person_frames):
-        cv2.imwrite(os.path.join(person_folder, f"frame_{i}.jpg"), frame)
-    
-    print(f"Saved {len(person_frames)} frames for Person {person_id} at {person_folder}.")
-    
-    print("Person has been registered with frames saved for future detections.")
-    
-    # Prepare the dataset and train the YOLOv8 model for the person
-
-import yaml
-
-def process_data_and_train(directory: str, model_save_path: str, image_size: int = 640, batch_size: int = 16):
-    # Initialize the YOLO model
-    model = YOLO("yolov8n.pt")  # Load a pre-trained YOLOv8 model (YOLOv8n is a small model)
-
-    # # Prepare dataset paths
-    # train_dir = Path(directory)
-    # image_paths = []
-    # annotation_paths = []
-    # class_names = {}
-
-    # # Iterate over each person's folder (each person represents a class)
-    # for person_id, person_folder in enumerate(train_dir.iterdir(), start=-1):
-    #     if person_folder.is_dir():
-    #         # class_names[person_id] = f"person_{person_id}"
-
-    #         # Iterate over images in the person's folder
-    #         for image_file in person_folder.glob("*.jpg"):  # Assuming all images are .jpg
-    #             image_paths.append(str(image_file))  # Convert PosixPath to string
-                
-    #             # Prepare the annotation file path
-    #             annotation_file = image_file.with_suffix(".txt")
-    #             annotation_paths.append(str(annotation_file))  # Convert PosixPath to string
-
-    #             # Process the annotations and save the corresponding .txt files
-    #             with open(annotation_file, 'w') as f:
-    #                 # Assume the bounding box is the whole image for simplicity
-    #                 image = cv2.imread(str(image_file))
-    #                 height, width, _ = image.shape
-    #                 # Define the bounding box for the person as (center_x, center_y, width, height) in normalized coordinates
-    #                 center_x = width / 2
-    #                 center_y = height / 2
-    #                 norm_width = width
-    #                 norm_height = height
-
-    #                 # Write the annotation in the format: class_id center_x center_y width height
-    #                 f.write(f"{person_id - 1} {center_x} {center_y} {norm_width} {norm_height}\n")
-    
-    # # Create a dictionary for the data configuration (to be used in YAML)
-    # data = {
-    #     'train': list(image_paths),  # Convert PosixPath objects to strings
-    #     'val': list(image_paths),    # For simplicity, using the same data for validation
-    #     'names': {0: "person_0"}
-    # }
-
-    # # # Save the data dictionary to a YAML file
     yaml_file_path = Path(directory) / 'data.yaml'
-    # with open(yaml_file_path, 'w') as yaml_file:
-    #     yaml.dump(data, yaml_file)
-    # print("yaml file path", yaml_file_path)
     
-    # Train the model using the generated YAML file
+    data = {
+        'train': str(yaml_file_path.parent / "train"),
+        'val': str(yaml_file_path.parent / "val"),
+        'names': {i: f"person_{i}" for i in range(len(os.listdir(directory)))}
+    }
+
+    with open(yaml_file_path, 'w') as yaml_file:
+        yaml.dump(data, yaml_file)
+
+    print("Dataset YAML file prepared at:", yaml_file_path)
+
+def train_yolo_for_reid():
+    """Train YOLOv8 to classify and re-identify people."""
+    model = YOLO("yolov8n.pt")
     model.train(
-        data="trained_persons/data.yaml",  # Pass the path to the generated YAML file
-        imgsz=image_size,
-        batch=batch_size,
-        epochs=10,  # Specify number of epochs
-        name='person_detection'
+        data="trained_persons/data.yaml",  
+        imgsz=640,
+        batch=16,
+        epochs=10,
+        name='person_reid'
     )
 
     model.export(format="onnx")
-    model.export(format="coreml")
     model.export(format="tflite")
+    model.export(format="coreml")
 
-# train_person_tracking("emi.MOV")
-process_data_and_train('trained_persons', 'trained_persons')
+
+train_person_tracking("emi.MOV")
+prepare_data_for_yolo("trained_persons")
+train_yolo_for_reid()
+'''

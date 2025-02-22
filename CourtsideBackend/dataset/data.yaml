@@ -1,0 +1,6 @@
+names:
+- emi
+nc: 1
+test: ./test
+train: ./train
+val: ./valid
