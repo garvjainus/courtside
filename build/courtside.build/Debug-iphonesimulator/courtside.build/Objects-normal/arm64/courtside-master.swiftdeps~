@@ -1,0 +1,23 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "62aa7635ebeb19c41f3a59791d3945645b79f53698247fccf79e0b7c945b440a"
+build_start_time: [1740210617, 360567092]
+build_end_time: [1740210617, 447664976]
+inputs:
+  "/Users/ezhang/Documents/courtside/courtside/ContentView.swift": !private [1740210504, 619294881]
+  "/Users/ezhang/Documents/courtside/courtside/Managers/AuthenticationManager.swift": !private [1740207934, 379664421]
+  "/Users/ezhang/Documents/courtside/courtside/Managers/GameManager.swift": !private [1740207934, 379802227]
+  "/Users/ezhang/Documents/courtside/courtside/Models/SideMenuType.swift": !private [1740210496, 906072139]
+  "/Users/ezhang/Documents/courtside/courtside/Views/AccountView.swift": !private [1740210503, 463292360]
+  "/Users/ezhang/Documents/courtside/courtside/Views/AnalyticsView.swift": !private [1740210502, 403366565]
+  "/Users/ezhang/Documents/courtside/courtside/Views/Authentication/AuthenticationView.swift": !private [1740208676, 458423614]
+  "/Users/ezhang/Documents/courtside/courtside/Views/Authentication/SignUpView.swift": !private [1740207934, 380515575]
+  "/Users/ezhang/Documents/courtside/courtside/Views/CustomNavigationBar.swift": !private [1740210500, 836489677]
+  "/Users/ezhang/Documents/courtside/courtside/Views/FriendsView.swift": !private [1740210502, 715837955]
+  "/Users/ezhang/Documents/courtside/courtside/Views/GameHistoryView.swift": !private [1740210500, 498113632]
+  "/Users/ezhang/Documents/courtside/courtside/Views/HomeView.swift": !private [1740210499, 472421646]
+  "/Users/ezhang/Documents/courtside/courtside/Views/NotificationMenu.swift": !private [1740210501, 768917083]
+  "/Users/ezhang/Documents/courtside/courtside/Views/SettingsView.swift": !private [1740210507, 109323501]
+  "/Users/ezhang/Documents/courtside/courtside/Views/SideMenu.swift": !private [1740210501, 466869354]
+  "/Users/ezhang/Documents/courtside/courtside/Views/StartGameView.swift": !private [1740210503, 48918962]
+  "/Users/ezhang/Documents/courtside/courtside/Views/StatsView.swift": !private [1740210502, 73853015]
+  "/Users/ezhang/Documents/courtside/courtside/courtsideApp.swift": !private [1740210504, 187794685]

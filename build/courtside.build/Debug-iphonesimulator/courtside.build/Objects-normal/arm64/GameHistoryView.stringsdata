@@ -1,0 +1,16 @@
+{
+  "source": "/Users/ezhang/Documents/courtside/courtside/Views/GameHistoryView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Game History"
+      },
+      {
+        "comment": "",
+        "key": "History"
+      }
+    ]
+  },
+  "version": 1
+}

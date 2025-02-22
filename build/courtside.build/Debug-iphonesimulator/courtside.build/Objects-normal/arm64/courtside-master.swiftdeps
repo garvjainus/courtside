@@ -1,0 +1,20 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "62aa7635ebeb19c41f3a59791d3945645b79f53698247fccf79e0b7c945b440a"
+build_start_time: [1740211179, 423540115]
+build_end_time: [1740211179, 807307004]
+inputs:
+  "/Users/ezhang/Documents/courtside/courtside/ContentView.swift": [1740210661, 835520982]
+  "/Users/ezhang/Documents/courtside/courtside/Managers/AuthenticationManager.swift": [1740207934, 379664421]
+  "/Users/ezhang/Documents/courtside/courtside/Managers/GameManager.swift": [1740207934, 379802227]
+  "/Users/ezhang/Documents/courtside/courtside/Models/SideMenuType.swift": [1740210496, 906072139]
+  "/Users/ezhang/Documents/courtside/courtside/Views/AccountView.swift": [1740210503, 463292360]
+  "/Users/ezhang/Documents/courtside/courtside/Views/AnalyticsView.swift": [1740210502, 403366565]
+  "/Users/ezhang/Documents/courtside/courtside/Views/Authentication/AuthenticationView.swift": [1740208676, 458423614]
+  "/Users/ezhang/Documents/courtside/courtside/Views/Authentication/SignUpView.swift": [1740207934, 380515575]
+  "/Users/ezhang/Documents/courtside/courtside/Views/FriendsView.swift": [1740210502, 715837955]
+  "/Users/ezhang/Documents/courtside/courtside/Views/GameHistoryView.swift": [1740210500, 498113632]
+  "/Users/ezhang/Documents/courtside/courtside/Views/HomeView.swift": [1740211165, 219420671]
+  "/Users/ezhang/Documents/courtside/courtside/Views/SettingsView.swift": [1740210507, 109323501]
+  "/Users/ezhang/Documents/courtside/courtside/Views/StartGameView.swift": [1740210503, 48918962]
+  "/Users/ezhang/Documents/courtside/courtside/Views/StatsView.swift": [1740210502, 73853015]
+  "/Users/ezhang/Documents/courtside/courtside/courtsideApp.swift": [1740210504, 187794685]

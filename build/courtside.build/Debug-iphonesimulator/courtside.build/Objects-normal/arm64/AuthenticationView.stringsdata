@@ -1,0 +1,36 @@
+{
+  "source": "/Users/ezhang/Documents/courtside/courtside/Views/Authentication/AuthenticationView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Courtside AI"
+      },
+      {
+        "comment": "",
+        "key": "\"Play Like The Pros\""
+      },
+      {
+        "comment": "",
+        "key": "Email"
+      },
+      {
+        "comment": "",
+        "key": "Password"
+      },
+      {
+        "comment": "",
+        "key": "Sign In"
+      },
+      {
+        "comment": "",
+        "key": "Sign in with Google"
+      },
+      {
+        "comment": "",
+        "key": "Sign Up"
+      }
+    ]
+  },
+  "version": 1
+}

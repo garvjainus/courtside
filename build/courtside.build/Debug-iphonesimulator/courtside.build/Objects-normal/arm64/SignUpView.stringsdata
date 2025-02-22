@@ -1,0 +1,32 @@
+{
+  "source": "/Users/ezhang/Documents/courtside/courtside/Views/Authentication/SignUpView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Create Account"
+      },
+      {
+        "comment": "",
+        "key": "Email"
+      },
+      {
+        "comment": "",
+        "key": "Password"
+      },
+      {
+        "comment": "",
+        "key": "Confirm Password"
+      },
+      {
+        "comment": "",
+        "key": "Sign Up"
+      },
+      {
+        "comment": "",
+        "key": "Cancel"
+      }
+    ]
+  },
+  "version": 1
+}

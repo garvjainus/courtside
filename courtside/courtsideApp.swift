@@ -15,7 +15,7 @@ struct courtsideApp: App {
     var body: some Scene {
         WindowGroup {
             if authManager.isAuthenticated {
-                MainTabView()
+                HomeView()
                     .environmentObject(gameManager)
                     .environmentObject(authManager)
             } else {

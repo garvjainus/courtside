@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct MainTabView: View {
+struct HomeView: View {
     @EnvironmentObject var gameManager: GameManager
     
     var body: some View {

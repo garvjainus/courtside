@@ -1,0 +1,12 @@
+{
+  "source": "/Users/ezhang/Documents/courtside/courtside/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Hello, world!"
+      }
+    ]
+  },
+  "version": 1
+}

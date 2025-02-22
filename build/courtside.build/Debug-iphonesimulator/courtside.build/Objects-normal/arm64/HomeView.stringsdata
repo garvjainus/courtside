@@ -1,0 +1,16 @@
+{
+  "source": "/Users/ezhang/Documents/courtside/courtside/Views/HomeView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "History"
+      },
+      {
+        "comment": "",
+        "key": "Settings"
+      }
+    ]
+  },
+  "version": 1
+}
