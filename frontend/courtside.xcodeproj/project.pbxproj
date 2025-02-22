@@ -29,8 +29,11 @@
 		32EB17D02D69AB4000BBAA50 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */; };
 		32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */; };
 		32EB17DB2D69FFBA00BBAA50 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */; };
-		9853282713F79C5386D385E8 /* Pods_courtside_courtsideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8AB89428E2A699661BC0293 /* Pods_courtside_courtsideUITests.framework */; };
-		BA565BA813E017BBF739DF00 /* Pods_courtsideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541C58562EA2E9BCA4E3D1B9 /* Pods_courtsideTests.framework */; };
+
+		62E68D5F2D6A3420002FE46C /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E68D5E2D6A3420002FE46C /* VideoPicker.swift */; };
+		62E68D632D6A34D2002FE46C /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E68D622D6A34D2002FE46C /* VideoPlayerView.swift */; };
+		D39E129ED65CFB3CFCBC3430 /* Pods_courtside_courtsideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECB65C827FED1FD6ECC87D1 /* Pods_courtside_courtsideUITests.framework */; };
+		D6047282FE1F9F50AFE5D51B /* Pods_courtside.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8086B135D9E23DBC29126D /* Pods_courtside.framework */; };
 		E768A6C92D69B521006659A3 /* SideMenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6C82D69B521006659A3 /* SideMenuType.swift */; };
 		E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D22D69B6A7006659A3 /* StatsView.swift */; };
 		E768A6D52D69B6B3006659A3 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */; };
@@ -83,9 +86,15 @@
 		32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistoryView.swift; sourceTree = "<group>"; };
 		32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		3B42BC9DCAC8330FDDD6BD0D /* Pods-courtside.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside.debug.xcconfig"; path = "Target Support Files/Pods-courtside/Pods-courtside.debug.xcconfig"; sourceTree = "<group>"; };
-		541C58562EA2E9BCA4E3D1B9 /* Pods_courtsideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtsideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E03074F4770C2AD0852E5AC7 /* Pods-courtside-courtsideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.debug.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E100B1D6DE1AE7EFACE6056F /* Pods-courtside-courtsideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.release.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3423B982235EB7F9C3D2D813 /* Pods_courtsideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtsideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		35F137C697F53195491F2869 /* Pods-courtside-courtsideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.release.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.release.xcconfig"; sourceTree = "<group>"; };
+		62E68D5E2D6A3420002FE46C /* VideoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
+		62E68D622D6A34D2002FE46C /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		62E68D642D6A3E52002FE46C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8ECB65C827FED1FD6ECC87D1 /* Pods_courtside_courtsideUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside_courtsideUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8149E43BE5D906519ED7A4A /* Pods-courtside-courtsideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.debug.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E768A6C82D69B521006659A3 /* SideMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuType.swift; sourceTree = "<group>"; };
 		E768A6D22D69B6A7006659A3 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
@@ -128,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				3293ADA32D6A0EBC0061A7EB /* GoogleService-Info.plist */,
+				62E68D642D6A3E52002FE46C /* Info.plist */,
 				32E2ED742D699E8D00E15762 /* courtside */,
 				32E2ED852D699E8E00E15762 /* courtsideTests */,
 				32E2ED8F2D699E8E00E15762 /* courtsideUITests */,
@@ -208,6 +218,8 @@
 				E768A6D62D69B6C0006659A3 /* FriendsView.swift */,
 				E768A6D82D69B6CF006659A3 /* StartGameView.swift */,
 				32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */,
+				62E68D5E2D6A3420002FE46C /* VideoPicker.swift */,
+				62E68D622D6A34D2002FE46C /* VideoPlayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -500,7 +512,9 @@
 			files = (
 				E768A6D92D69B6CF006659A3 /* StartGameView.swift in Sources */,
 				3287A8C32D6A25DD00B8E60C /* ShotModel.swift in Sources */,
+				62E68D5F2D6A3420002FE46C /* VideoPicker.swift in Sources */,
 				E768A6D52D69B6B3006659A3 /* AnalyticsView.swift in Sources */,
+				62E68D632D6A34D2002FE46C /* VideoPlayerView.swift in Sources */,
 				32EB17CC2D69AB4000BBAA50 /* SettingsView.swift in Sources */,
 				E768A6C92D69B521006659A3 /* SideMenuType.swift in Sources */,
 				32EB17BF2D69AB3900BBAA50 /* AuthenticationManager.swift in Sources */,
@@ -604,7 +618,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -659,7 +674,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -678,9 +694,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"courtside/Preview Content\"";
-				DEVELOPMENT_TEAM = PF4MU983T9;
+				DEVELOPMENT_TEAM = 6RCSWL5L9W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to record videos.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to record audio with the video.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -691,7 +709,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = hacklytics.courtside;
+				PRODUCT_BUNDLE_IDENTIFIER = courtside;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -709,9 +727,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"courtside/Preview Content\"";
-				DEVELOPMENT_TEAM = PF4MU983T9;
+				DEVELOPMENT_TEAM = 6RCSWL5L9W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to record videos.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to record audio with the video.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -722,7 +742,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = hacklytics.courtside;
+				PRODUCT_BUNDLE_IDENTIFIER = courtside;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
