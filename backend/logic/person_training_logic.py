@@ -8,6 +8,7 @@ import shutil
 from pathlib import Path
 from deep_sort_realtime.deepsort_tracker import DeepSort 
 import yaml
+import coremltools as ct
 
 
 # Directory to store trained identities
@@ -91,7 +92,8 @@ process_videos("videos")
 
 model = YOLO("yolov8n.pt")
 model.train(data="dataset/data.yaml", epochs=10, imgsz=640, name="person_classifier")
-
+model.export(format="coreml")
+model.export(format="pt")
 
 '''
 def train_person_tracking(video_path: str):
