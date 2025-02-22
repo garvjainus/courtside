@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C1D09CA78DA1D0F133C7859 /* Pods_courtside_courtsideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FBAB6E27CE197AE1C61A66 /* Pods_courtside_courtsideUITests.framework */; };
+		1C1D09CA78DA1D0F133C7859 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		32E2ED762D699E8D00E15762 /* courtsideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2ED752D699E8D00E15762 /* courtsideApp.swift */; };
 		32E2ED782D699E8D00E15762 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2ED772D699E8D00E15762 /* ContentView.swift */; };
 		32E2ED7A2D699E8E00E15762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E2ED792D699E8E00E15762 /* Assets.xcassets */; };
@@ -22,12 +22,15 @@
 		32EB17CF2D69AB4000BBAA50 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C82D69AB3F00BBAA50 /* AuthenticationView.swift */; };
 		32EB17D02D69AB4000BBAA50 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */; };
 		32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */; };
-		32EB17D52D69E82E00BBAA50 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17D42D69E82E00BBAA50 /* SideMenuView.swift */; };
+		32EB17DB2D69FFBA00BBAA50 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */; };
+		D39E129ED65CFB3CFCBC3430 /* Pods_courtside_courtsideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECB65C827FED1FD6ECC87D1 /* Pods_courtside_courtsideUITests.framework */; };
+		D6047282FE1F9F50AFE5D51B /* Pods_courtside.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8086B135D9E23DBC29126D /* Pods_courtside.framework */; };
 		E768A6C92D69B521006659A3 /* SideMenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6C82D69B521006659A3 /* SideMenuType.swift */; };
 		E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D22D69B6A7006659A3 /* StatsView.swift */; };
 		E768A6D52D69B6B3006659A3 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */; };
 		E768A6D72D69B6C0006659A3 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D62D69B6C0006659A3 /* FriendsView.swift */; };
 		E768A6D92D69B6CF006659A3 /* StartGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D82D69B6CF006659A3 /* StartGameView.swift */; };
+		F26321E2CC5B7DBD6070F06F /* Pods_courtsideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3423B982235EB7F9C3D2D813 /* Pods_courtsideTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,8 @@
 /* Begin PBXFileReference section */
 		0F05BBABF9520FBD0E39AA16 /* Pods-courtside.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside.debug.xcconfig"; path = "Target Support Files/Pods-courtside/Pods-courtside.debug.xcconfig"; sourceTree = "<group>"; };
 		1D1F67A63B60DFD9466C1876 /* Pods-courtside.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside.release.xcconfig"; path = "Target Support Files/Pods-courtside/Pods-courtside.release.xcconfig"; sourceTree = "<group>"; };
+		20665A10F0DE66A1EBACF728 /* Pods-courtsideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.debug.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.debug.xcconfig"; sourceTree = "<group>"; };
+		271A0B9A8C94D7B818986AE0 /* Pods-courtsideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.release.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.release.xcconfig"; sourceTree = "<group>"; };
 		32E2ED722D699E8D00E15762 /* courtside.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = courtside.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32E2ED752D699E8D00E15762 /* courtsideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courtsideApp.swift; sourceTree = "<group>"; };
 		32E2ED772D699E8D00E15762 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,12 +72,17 @@
 		32EB17C82D69AB3F00BBAA50 /* AuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistoryView.swift; sourceTree = "<group>"; };
-		32EB17D42D69E82E00BBAA50 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
+		32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
+		3423B982235EB7F9C3D2D813 /* Pods_courtsideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtsideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		35F137C697F53195491F2869 /* Pods-courtside-courtsideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.release.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8ECB65C827FED1FD6ECC87D1 /* Pods_courtside_courtsideUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside_courtsideUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8149E43BE5D906519ED7A4A /* Pods-courtside-courtsideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtside-courtsideUITests.debug.xcconfig"; path = "Target Support Files/Pods-courtside-courtsideUITests/Pods-courtside-courtsideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E768A6C82D69B521006659A3 /* SideMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuType.swift; sourceTree = "<group>"; };
 		E768A6D22D69B6A7006659A3 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		E768A6D62D69B6C0006659A3 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		E768A6D82D69B6CF006659A3 /* StartGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameView.swift; sourceTree = "<group>"; };
+		EA8086B135D9E23DBC29126D /* Pods_courtside.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courtside.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2CD886533062B544E11AB62 /* Pods_courtside.framework in Frameworks */,
+				D6047282FE1F9F50AFE5D51B /* Pods_courtside.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33CE24E4879A31F85D781313 /* Pods_courtsideTests.framework in Frameworks */,
+				F26321E2CC5B7DBD6070F06F /* Pods_courtsideTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +106,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C1D09CA78DA1D0F133C7859 /* Pods_courtside_courtsideUITests.framework in Frameworks */,
+				1C1D09CA78DA1D0F133C7859 /* (null) in Frameworks */,
+				D39E129ED65CFB3CFCBC3430 /* Pods_courtside_courtsideUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,7 +195,7 @@
 				E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */,
 				E768A6D62D69B6C0006659A3 /* FriendsView.swift */,
 				E768A6D82D69B6CF006659A3 /* StartGameView.swift */,
-				32EB17D42D69E82E00BBAA50 /* SideMenuView.swift */,
+				32EB17DA2D69FFBA00BBAA50 /* SideMenuView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -203,21 +214,20 @@
 			children = (
 				0F05BBABF9520FBD0E39AA16 /* Pods-courtside.debug.xcconfig */,
 				1D1F67A63B60DFD9466C1876 /* Pods-courtside.release.xcconfig */,
-				E9CE1DB864D51A99F38FE98A /* Pods-courtside-courtsideUITests.debug.xcconfig */,
-				9E6328DE62576B58F06B00E1 /* Pods-courtside-courtsideUITests.release.xcconfig */,
-				A726AB740C82820907C0E007 /* Pods-courtsideTests.debug.xcconfig */,
-				805D7B95C70A7E9E259B3DE9 /* Pods-courtsideTests.release.xcconfig */,
+				B8149E43BE5D906519ED7A4A /* Pods-courtside-courtsideUITests.debug.xcconfig */,
+				35F137C697F53195491F2869 /* Pods-courtside-courtsideUITests.release.xcconfig */,
+				20665A10F0DE66A1EBACF728 /* Pods-courtsideTests.debug.xcconfig */,
+				271A0B9A8C94D7B818986AE0 /* Pods-courtsideTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		3A3DC95DAA98091C8917945C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				75133508E66B6704EC493EBD /* Pods_courtside.framework */,
-				94FBAB6E27CE197AE1C61A66 /* Pods_courtside_courtsideUITests.framework */,
-				AC3A3BF465AD180FE110EA06 /* Pods_courtsideTests.framework */,
+				EA8086B135D9E23DBC29126D /* Pods_courtside.framework */,
+				8ECB65C827FED1FD6ECC87D1 /* Pods_courtside_courtsideUITests.framework */,
+				3423B982235EB7F9C3D2D813 /* Pods_courtsideTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -480,7 +490,7 @@
 				32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */,
 				32E2ED782D699E8D00E15762 /* ContentView.swift in Sources */,
 				E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */,
-				32EB17D52D69E82E00BBAA50 /* SideMenuView.swift in Sources */,
+				32EB17DB2D69FFBA00BBAA50 /* SideMenuView.swift in Sources */,
 				32E2ED762D699E8D00E15762 /* courtsideApp.swift in Sources */,
 				32EB17CB2D69AB4000BBAA50 /* HomeView.swift in Sources */,
 			);
@@ -662,6 +672,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				m = m;
 			};
 			name = Debug;
 		};
@@ -692,12 +703,13 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				m = m;
 			};
 			name = Release;
 		};
 		32E2ED9A2D699E8E00E15762 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A726AB740C82820907C0E007 /* Pods-courtsideTests.debug.xcconfig */;
+			baseConfigurationReference = 20665A10F0DE66A1EBACF728 /* Pods-courtsideTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -718,7 +730,7 @@
 		};
 		32E2ED9B2D699E8E00E15762 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 805D7B95C70A7E9E259B3DE9 /* Pods-courtsideTests.release.xcconfig */;
+			baseConfigurationReference = 271A0B9A8C94D7B818986AE0 /* Pods-courtsideTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -739,7 +751,7 @@
 		};
 		32E2ED9D2D699E8E00E15762 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E9CE1DB864D51A99F38FE98A /* Pods-courtside-courtsideUITests.debug.xcconfig */;
+			baseConfigurationReference = B8149E43BE5D906519ED7A4A /* Pods-courtside-courtsideUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -758,7 +770,7 @@
 		};
 		32E2ED9E2D699E8E00E15762 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9E6328DE62576B58F06B00E1 /* Pods-courtside-courtsideUITests.release.xcconfig */;
+			baseConfigurationReference = 35F137C697F53195491F2869 /* Pods-courtside-courtsideUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
