@@ -54,10 +54,29 @@ struct HomeView: View {
     }
 }
 
-// Custom Side Menu View
+struct MenuButton: View {
+    let title: String
+    let icon: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack {
+                Image(systemName: icon)
+                Text(title)
+                    .bold()
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .background(Color.clear)
+    }
+}
+
 struct CustomSideMenuView: View {
     @Binding var showMenu: Bool
     @Binding var selectedTab: String?
+    @EnvironmentObject var authManager: AuthenticationManager  // Use AuthenticationManager
 
     var body: some View {
         ZStack {
@@ -122,6 +141,33 @@ struct CustomSideMenuView: View {
                     .foregroundColor(.white)
 
                     Spacer()
+
+                    // 🔥 Sign Out Button
+                    Button(action: {
+                        authManager.signOut { success in
+                            if success {
+                                print("✅ Signed out successfully")
+                                selectedTab = nil
+                                showMenu = false
+                            } else {
+                                print("❌ Sign out failed")
+                            }
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.right.circle.fill")
+                                .foregroundColor(.red)
+                            Text("Sign Out")
+                                .foregroundColor(.red)
+                                .bold()
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .background(Color.white.opacity(0.1))
+                    .cornerRadius(10)
+                    .padding(.horizontal, 20)
+
                 }
                 .frame(width: 250)
                 .background(Color.gray.opacity(0.9))
@@ -135,20 +181,6 @@ struct CustomSideMenuView: View {
     }
 }
 
-// Menu Button Component
-struct MenuButton: View {
-    let title: String
-    let icon: String
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            Label(title, systemImage: icon)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-        }
-    }
-}
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {

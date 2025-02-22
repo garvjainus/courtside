@@ -17,35 +17,6 @@ struct AuthenticationView: View {
                     .foregroundColor(.white)
                     .padding(.bottom, 20)
                 
-                // Smiley Faces (Placeholder)
-                HStack(spacing: -20) { // Negative spacing for slight overlap
-                    Image("curry")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 110, height: 110)
-                        .offset(y: 10) // Push Curry slightly down
-
-                    ZStack {
-                        Image("lebron (1)")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 140, height: 140)
-                            .zIndex(1) // Bring to front
-                    }
-
-                    Image("shai")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 110, height: 110)
-                        .offset(y: 10) // Push Shai slightly down
-                }
-                
-                // Tagline
-                Text("\"Play Like The Pros\"")
-                    .font(.title3)
-                    .italic()
-                    .foregroundColor(.white)
-                
                 // Email Field
                 TextField("Email", text: $email)
                     .textFieldStyle(PlainTextFieldStyle())
@@ -66,7 +37,11 @@ struct AuthenticationView: View {
                 
                 // Sign In Button
                 Button(action: {
-                    authManager.signIn(email: email, password: password)
+                    authManager.signIn(email: email, password: password) { success in
+                        if success {
+                            print("✅ Sign-in successful")
+                        }
+                    }
                 }) {
                     Text("Sign In")
                         .frame(maxWidth: .infinity)
@@ -74,29 +49,6 @@ struct AuthenticationView: View {
                         .background(Color.white)
                         .foregroundColor(.black)
                         .cornerRadius(10)
-                }
-                .padding(.horizontal)
-                
-                // Google Sign In Button
-                Button(action: {
-                    authManager.signInWithGoogle()
-                }) {
-                    HStack {
-                        Image("google")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 30, height: 30)
-                        Text("Sign in with Google")
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.white)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
                 }
                 .padding(.horizontal)
                 
