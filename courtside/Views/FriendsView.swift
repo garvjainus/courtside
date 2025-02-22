@@ -9,7 +9,19 @@ import SwiftUI
 
 struct FriendsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Friends")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+                .padding()
+            
+            // Add your friends content here
+            Text("No friends added yet")
+                .foregroundColor(.white)
+                .padding()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.ignoresSafeArea())
     }
 }
 

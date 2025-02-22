@@ -9,7 +9,19 @@ import SwiftUI
 
 struct AnalyticsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Analytics")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+                .padding()
+            
+            // Add your analytics content here
+            Text("No analytics data available")
+                .foregroundColor(.white)
+                .padding()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.ignoresSafeArea())
     }
 }
 

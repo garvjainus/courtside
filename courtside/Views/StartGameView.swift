@@ -9,7 +9,26 @@ import SwiftUI
 
 struct StartGameView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Start Game")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+                .padding()
+            
+            // Add your start game content here
+            Button(action: {
+                // Add game start logic here
+            }) {
+                Text("Start New Game")
+                    .foregroundColor(.black)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+            }
+            .padding()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.ignoresSafeArea())
     }
 }
 

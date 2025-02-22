@@ -9,7 +9,19 @@ import SwiftUI
 
 struct StatsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Stats")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+                .padding()
+            
+            // Add your stats content here
+            Text("No stats available")
+                .foregroundColor(.white)
+                .padding()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.ignoresSafeArea())
     }
 }
 

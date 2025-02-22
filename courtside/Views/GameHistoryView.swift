@@ -2,29 +2,21 @@ import SwiftUI
 
 struct GameHistoryView: View {
     @EnvironmentObject var gameManager: GameManager
-    @Binding var showMenu: Bool  // ✅ Add Binding
+    @Binding var showMenu: Bool
 
     var body: some View {
-        ZStack {
-            // Main Content
-            VStack {
-                Text("🏀 Welcome to Courtside AI!")
-                    .foregroundColor(.white)
-                    .font(.largeTitle)
-                    .padding()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black.ignoresSafeArea())
+        VStack {
+            Text("Game History")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+                .padding()
             
-            .navigationBarTitle("", displayMode: .inline)
-            .navigationBarItems(leading: Button(action: {
-                withAnimation {
-                    showMenu.toggle()  // ✅ Use the binding correctly
-                }
-            }) {
-                Image(systemName: "line.horizontal.3")
-                    .foregroundColor(.white)
-            })
+            // Add your game history content here
+            Text("No games played yet")
+                .foregroundColor(.white)
+                .padding()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.ignoresSafeArea())
     }
 }
