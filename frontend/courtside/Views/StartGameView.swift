@@ -2,32 +2,59 @@ import SwiftUI
 import AVFoundation
 
 struct StartGameView: View {
-    @State private var numberOfPlayers: String = ""
-    @State private var playerNames: [String] = [""]
+    @State private var numberOfPlayersA = ""
+    @State private var numberOfPlayersB = ""
+    @State private var teamAPlayers: [String] = []
+    @State private var teamBPlayers: [String] = []
+    @State private var currentStep = 0
+    @State private var currentPlayerIndex = 0
+    @State private var showRecordingScreen = false
+    @State private var showSummaryScreen = false
     @StateObject private var cameraModel = CameraModel()
     
+    
     var body: some View {
+        VStack {
+            if currentStep == 0 {
+                enterPlayersView
+            } else if currentStep == 1 {
+                recordVideosView
+            } else {
+                summaryView
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.ignoresSafeArea())
+    }
+    
+    var enterPlayersView: some View {
         VStack {
             Text("Start Game")
                 .foregroundColor(.white)
                 .font(.largeTitle)
                 .padding()
             
-            TextField("Enter number of players", text: $numberOfPlayers)
+            TextField("Enter number of players on A", text: $numberOfPlayersA)
                 .keyboardType(.numberPad)
                 .padding()
                 .background(Color.white)
                 .cornerRadius(10)
-            
-            if let playersCount = Int(numberOfPlayers), playersCount > 0 {
-                ForEach(0..<playersCount, id: \.self) { index in
-                    TextField("Enter name for player \(index + 1)", text: Binding(
-                        get: { playerNames[safe: index] ?? "" },
+            TextField("Enter number of players on B", text: $numberOfPlayersB)
+                .keyboardType(.numberPad)
+                .padding()
+                .background(Color.white)
+                .cornerRadius(10)
+            if let playersCountA = Int(numberOfPlayersA), playersCountA > 0 {
+                ForEach(0..<playersCountA, id: \.self) { index in
+                    TextField("Enter name for player \(index + 1) on team A", text: Binding(
+                        get: {
+                            teamAPlayers.indices.contains(index) ? teamAPlayers[index] : ""
+                        },
                         set: { newValue in
-                            if playerNames.count <= index {
-                                playerNames.append(newValue)
+                            if teamAPlayers.count <= index {
+                                teamAPlayers.append(newValue)
                             } else {
-                                playerNames[index] = newValue
+                                teamAPlayers[index] = newValue
                             }
                         }
                     ))
@@ -36,84 +63,161 @@ struct StartGameView: View {
                     .cornerRadius(10)
                 }
             }
-            
-            ZStack {
-                #if targetEnvironment(simulator)
-                // Simulator placeholder
-                Rectangle()
-                    .fill(Color.gray)
-                    .frame(height: 300)
-                    .cornerRadius(10)
-                    .overlay(
-                        Text("Camera not available on simulator")
-                            .foregroundColor(.white)
-                    )
-                #else
-                CameraPreview(camera: cameraModel)
-                    .frame(height: 300)
-                    .cornerRadius(10)
+            if let playersCountB = Int(numberOfPlayersB), playersCountB > 0 {
+                ForEach(0..<playersCountB, id: \.self) { index in
+                    TextField("Enter name for player \(index + 1) on team B", text: Binding(
+                        get: {
+                            teamBPlayers.indices.contains(index) ? teamBPlayers[index] : ""
+                        },
+                        set: { newValue in
+                            if teamBPlayers.count <= index {
+                                teamBPlayers.append(newValue)
+                            } else {
+                                teamBPlayers[index] = newValue
+                            }
+                        }
+                    ))
                     .padding()
-                #endif
-                
-                if cameraModel.isRecording {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.red.opacity(0.3))
-                        .frame(width: 50, height: 50)
-                        .overlay(
-                            Circle()
-                                .fill(Color.red)
-                                .frame(width: 20, height: 20)
-                        )
-                }
-            }
-            Button (action: {
-                cameraModel.switchCamera()
-            }) {
-                Label("Switch Camera", systemImage: "arrow.triangle.2.circlepath.camera")
-            }.buttonStyle(.borderedProminent)
-            HStack {
-                Button(action: {
-                    cameraModel.startRecording()
-                }) {
-                    Text("Start Recording")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.green)
-                        .cornerRadius(10)
-                }
-                
-                Button(action: {
-                    cameraModel.stopRecording()
-                }) {
-                    Text("Stop Recording")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.red)
-                        .cornerRadius(10)
-                }
-            }
-            .padding()
-            
-            Button(action: {
-                uploadVideo() // Upload the video after recording
-            }) {
-                Text("Upload Video")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
+                    .background(Color.white)
                     .cornerRadius(10)
+                }
             }
-            .padding()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.ignoresSafeArea())
-        .onAppear {
-            cameraModel.setup()
+            Button("Confirm Players") {
+                currentStep = 1
+                currentPlayerIndex = 0
+            }
+            .buttonStyle(.borderedProminent)
         }
     }
     
+    var recordVideosView: some View {
+        VStack {
+            let players = teamAPlayers + teamBPlayers
+            ForEach(players, id: \.self) { player in
+                ZStack {
+                    #if targetEnvironment(simulator)
+                    // Simulator placeholder
+                    Rectangle()
+                        .fill(Color.gray)
+                        .frame(height: 300)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("Camera not available on simulator")
+                                .foregroundColor(.white)
+                        )
+                    #else
+                    CameraPreview(camera: cameraModel)
+                        .frame(height: 300)
+                        .cornerRadius(10)
+                        .padding()
+                    #endif
+                    
+                    if cameraModel.isRecording {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.red.opacity(0.3))
+                            .frame(width: 50, height: 50)
+                            .overlay(
+                                Circle()
+                                    .fill(Color.red)
+                                    .frame(width: 20, height: 20)
+                            )
+                    }
+                }
+                Button (action: {
+                    cameraModel.switchCamera()
+                }) {
+                    Label("Switch Camera", systemImage: "arrow.triangle.2.circlepath.camera")
+                }.buttonStyle(.borderedProminent)
+                HStack {
+                    Button(action: {
+                        cameraModel.startRecording()
+                    }) {
+                        Text("Start Recording")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.green)
+                            .cornerRadius(10)
+                    }
+                    
+                    Button(action: {
+                        cameraModel.stopRecording()
+                    }) {
+                        Text("Stop Recording")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.red)
+                            .cornerRadius(10)
+                    }
+                }
+                .padding()
+                let team = teamBPlayers.contains(player) ? "B" : "A"
+                
+                Button(action: {
+                    uploadVideo(for: player, for: team)
+                }) {
+                    Text("Upload Video")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding()
+            }
+            // Go back button
+            Button("Go Back") {
+                if currentStep > 0 {
+                    currentStep -= 1
+                }
+            }
+            .buttonStyle(.borderedProminent)
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.blue)
+            .cornerRadius(10)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black.ignoresSafeArea())
+            .onAppear {
+                cameraModel.setup()
+            }
+        }
+    }
+    
+    var summaryView: some View {
+        VStack {
+            Text("Summary")
+                .font(.title)
+            List {
+                Section(header: Text("Team A")) {
+                    ForEach(teamAPlayers, id: \..self) { player in
+                        Text(player)
+                    }
+                }
+                Section(header: Text("Team B")) {
+                    ForEach(teamBPlayers, id: \..self) { player in
+                        Text(player)
+                    }
+                }
+            }
+            Button("Train Model") {
+                trainModel()
+            }
+            .buttonStyle(.borderedProminent)
+            Button("Go Back") {
+                        if currentStep > 0 {
+                            currentStep -= 1
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+
+        }
+    }
+
     // Function to upload the video to the FastAPI server
-    func uploadVideo() {
+    func uploadVideo(for playerName: String, for team: String) {
         guard let videoURL = cameraModel.videoURL else {
             print("No video recorded")
             return
@@ -132,7 +236,7 @@ struct StartGameView: View {
 
         // Add the video file to the body
         let videoData = try? Data(contentsOf: videoURL)
-        let videoFileName = "video.mov"
+        let videoFileName = "\(playerName)_\(team).mov"
         
         if let videoData = videoData {
             body.append("--\(boundary)\r\n".data(using: .utf8)!)
@@ -143,10 +247,14 @@ struct StartGameView: View {
         }
 
         // Add the player name to the body
-        let playerName = playerNames.first ?? "Player1" // Modify this as needed
         body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"player_names\"\r\n\r\n".data(using: .utf8)!)
-        body.append(playerName.data(using: .utf8)!)  // Convert the player name to Data
+        body.append("Content-Disposition: form-data; name=\"player_name\"\r\n\r\n".data(using: .utf8)!)
+        body.append(playerName.data(using: .utf8)!)  // Convert player name to Data
+        body.append("\r\n".data(using: .utf8)!)
+        
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"team\"\r\n\r\n".data(using: .utf8)!)
+        body.append(team.data(using: .utf8)!)  // Convert team to Data
         body.append("\r\n".data(using: .utf8)!)
 
         // End boundary
