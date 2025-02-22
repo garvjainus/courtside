@@ -23,3 +23,12 @@ trained_persons/
 # Ignore system files
 .DS_Store
 Thumbs.db
+
+# Ignore images
+backend/dataset/
+
+backend/runs/
+
+backend/uploads
+
+backend/videos
