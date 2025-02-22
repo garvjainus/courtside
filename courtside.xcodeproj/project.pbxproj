@@ -22,12 +22,7 @@
 		32EB17CF2D69AB4000BBAA50 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C82D69AB3F00BBAA50 /* AuthenticationView.swift */; };
 		32EB17D02D69AB4000BBAA50 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17C92D69AB3F00BBAA50 /* SignUpView.swift */; };
 		32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17CA2D69AB3F00BBAA50 /* GameHistoryView.swift */; };
-<<<<<<< HEAD
 		32EB17D52D69E82E00BBAA50 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB17D42D69E82E00BBAA50 /* SideMenuView.swift */; };
-=======
-		33CE24E4879A31F85D781313 /* Pods_courtsideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC3A3BF465AD180FE110EA06 /* Pods_courtsideTests.framework */; };
-		D2CD886533062B544E11AB62 /* Pods_courtside.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75133508E66B6704EC493EBD /* Pods_courtside.framework */; };
->>>>>>> 34623c47bf7959b2f16acefdbc11656d55b1be9b
 		E768A6C92D69B521006659A3 /* SideMenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6C82D69B521006659A3 /* SideMenuType.swift */; };
 		E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D22D69B6A7006659A3 /* StatsView.swift */; };
 		E768A6D52D69B6B3006659A3 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768A6D42D69B6B3006659A3 /* AnalyticsView.swift */; };
