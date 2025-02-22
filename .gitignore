@@ -29,6 +29,6 @@ backend/dataset/
 
 backend/runs/
 
-backend/uploads
+backend/uploads/
 
-backend/videos
+backend/videos/

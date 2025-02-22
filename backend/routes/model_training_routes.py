@@ -1,6 +1,7 @@
 import os
 from fastapi import APIRouter, UploadFile, File
-from logic.model_training_logic import UPLOAD_DIR, DATASET_DIR, process_videos, train_model_logic, test_model_logic
+from logic.model_training_logic import UPLOAD_DIR, DATASET_DIR, process_videos, train_model_logic, test_model_logic, reset_dataset_dir
+import shutil
 
 model_routes = APIRouter()
 
@@ -16,6 +17,9 @@ async def upload_video(file: UploadFile = File(...), player_name: str = "", play
     
     with open(video_path, "wb") as f:
         f.write(await file.read())
+    
+    reset_dataset_dir()
+
     
     return {"filename": new_filename}
 

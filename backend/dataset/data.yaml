@@ -1,7 +1,6 @@
 names:
-- emi_a
-- garv_b
-nc: 2
+- avyu_a
+nc: 1
 test: ./test
 train: ./train
 val: ./valid

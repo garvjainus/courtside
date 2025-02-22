@@ -146,3 +146,30 @@ def test_model_logic(image_path: str):
                 "confidence": box.conf[0].item()
             })
     return detections
+
+
+def reset_dataset_dir():
+    dir_path = f"{DATASET_DIR}"
+    for filename in os.listdir(dir_path):
+        file_path = os.path.join(dir_path, filename)
+        try:
+            # Remove file or symbolic link.
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            # Remove directory and its contents.
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print(f'Failed to delete {file_path}. Reason: {e}')
+            
+            
+    subsets = ['train', 'valid', 'test']
+    subfolders = ['images', 'labels']
+
+    # Create the directory structure
+    for subset in subsets:
+        for folder in subfolders:
+            folder_path = os.path.join(DATASET_DIR, subset, folder)
+            os.makedirs(folder_path, exist_ok=True)
+            print(f"Created: {folder_path}")
+
