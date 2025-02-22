@@ -1,0 +1,6 @@
+framework module Pods_courtside_courtsideUITests {
+  umbrella header "Pods-courtside-courtsideUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
