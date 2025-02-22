@@ -148,6 +148,7 @@ def test_model_logic(image_path: str):
     return detections
 
 
+# also creates runs folder
 def reset_dataset_dir():
     dir_path = f"{DATASET_DIR}"
     for filename in os.listdir(dir_path):
@@ -173,3 +174,8 @@ def reset_dataset_dir():
             os.makedirs(folder_path, exist_ok=True)
             print(f"Created: {folder_path}")
 
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.dirname(current_dir)
+    new_folder = os.path.join(parent_dir, "runs")
+    os.makedirs(new_folder, exist_ok=True)
+    print(f"Folder created at: {new_folder}")
