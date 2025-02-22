@@ -7,22 +7,52 @@ struct AuthenticationView: View {
     @EnvironmentObject var authManager: AuthenticationManager
     
     var body: some View {
-        NavigationView {
+        ZStack {
+            Color.black.ignoresSafeArea()
             VStack(spacing: 20) {
-                // Logo or App Name
-                Text("Courtside")
-                    .font(.system(size: 40, weight: .bold))
-                    .padding(.bottom, 50)
                 
-                // Email field
+                // App Title
+                Text("Courtside AI")
+                    .font(.system(size: 40, weight: .bold, design: .monospaced))
+                    .foregroundColor(.white)
+                    .padding(.bottom, 20)
+                
+                // Smiley Faces (Placeholder)
+                HStack(spacing: 30) {
+                    Image(systemName: "face.smiling")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                    Image(systemName: "face.smiling")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                    Image(systemName: "face.smiling")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                }
+                .padding(.bottom, 10)
+                
+                // Tagline
+                Text("\"Play Like The Pros\"")
+                    .font(.title3)
+                    .italic()
+                    .foregroundColor(.white)
+                
+                // Email Field
                 TextField("Email", text: $email)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .autocapitalization(.none)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding()
+                    .background(Color.white.opacity(0.2))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                     .padding(.horizontal)
                 
-                // Password field
+                // Password Field
                 SecureField("Password", text: $password)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding()
+                    .background(Color.white.opacity(0.2))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                     .padding(.horizontal)
                 
                 // Sign In Button
@@ -32,8 +62,8 @@ struct AuthenticationView: View {
                     Text("Sign In")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
+                        .background(Color.white)
+                        .foregroundColor(.black)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
@@ -63,12 +93,15 @@ struct AuthenticationView: View {
                 Button(action: {
                     showSignUp = true
                 }) {
-                    Text("Don't have an account? Sign Up")
-                        .foregroundColor(.blue)
+                    Text("Sign Up")
+                        .foregroundColor(.white)
+                        .underline()
                 }
+                .padding(.top, 10)
                 
                 if authManager.isLoading {
                     ProgressView()
+                        .foregroundColor(.white)
                 }
                 
                 if let error = authManager.errorMessage {
