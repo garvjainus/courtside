@@ -93,7 +93,10 @@ struct StartGameView: View {
     var recordVideosView: some View {
         VStack {
             let players = teamAPlayers + teamBPlayers
-            ForEach(players, id: \.self) { player in
+            
+            if currentPlayerIndex < players.count {
+                let currentPlayer = players[currentPlayerIndex]
+                
                 ZStack {
                     #if targetEnvironment(simulator)
                     // Simulator placeholder
@@ -111,7 +114,7 @@ struct StartGameView: View {
                         .cornerRadius(10)
                         .padding()
                     #endif
-                    
+
                     if cameraModel.isRecording {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(Color.red.opacity(0.3))
@@ -123,11 +126,17 @@ struct StartGameView: View {
                             )
                     }
                 }
-                Button (action: {
+                
+                Text("Recording video for \(currentPlayer)")
+                    .foregroundColor(.white)
+                    .padding()
+
+                Button(action: {
                     cameraModel.switchCamera()
                 }) {
                     Label("Switch Camera", systemImage: "arrow.triangle.2.circlepath.camera")
                 }.buttonStyle(.borderedProminent)
+
                 HStack {
                     Button(action: {
                         cameraModel.startRecording()
@@ -138,7 +147,7 @@ struct StartGameView: View {
                             .background(Color.green)
                             .cornerRadius(10)
                     }
-                    
+
                     Button(action: {
                         cameraModel.stopRecording()
                     }) {
@@ -150,10 +159,19 @@ struct StartGameView: View {
                     }
                 }
                 .padding()
-                let team = teamBPlayers.contains(player) ? "B" : "A"
-                
+
                 Button(action: {
-                    uploadVideo(for: player, for: team)
+                    // Upload video for the current player
+                    let team = teamBPlayers.contains(currentPlayer) ? "B" : "A"
+                    uploadVideo(for: currentPlayer, for: team)
+                    
+                    // Move to the next player
+                    if currentPlayerIndex < players.count - 1 {
+                        currentPlayerIndex += 1
+                    } else {
+                        // If all players have recorded, move to the summary view
+                        currentStep = 2
+                    }
                 }) {
                     Text("Upload Video")
                         .foregroundColor(.white)
@@ -162,7 +180,12 @@ struct StartGameView: View {
                         .cornerRadius(10)
                 }
                 .padding()
+
+            } else {
+                Text("All videos recorded")
+                    .foregroundColor(.white)
             }
+
             // Go back button
             Button("Go Back") {
                 if currentStep > 0 {
@@ -181,6 +204,7 @@ struct StartGameView: View {
             }
         }
     }
+
     
     var summaryView: some View {
         VStack {
