@@ -6,12 +6,12 @@ import UIKit
 
 struct RealTimeClipView: View {
     @StateObject private var realTimeClipCameraModel = RealTimeClipCameraModel()
-    
+   
     var body: some View {
         ZStack {
             // Display the live camera feed.
             RealTimeClipPreview(camera: realTimeClipCameraModel)
-            
+           
             VStack {
                 HStack {
                     Spacer()
@@ -25,11 +25,11 @@ struct RealTimeClipView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    .padding()
+                    .padding(.top, 100)
                 }
-                    
+               
                 Spacer()
-                
+               
                 // Red Toggle Button to Start/Stop Sending Frames
                 Button(action: {
                     realTimeClipCameraModel.isSending.toggle()
@@ -46,7 +46,8 @@ struct RealTimeClipView: View {
                         .cornerRadius(10)
                         .padding(.horizontal, 20)
                 }
-                
+                .padding(.bottom, 30)
+               
                 if let error = realTimeClipCameraModel.errorMessage {
                     Text(error)
                         .foregroundColor(.red)
@@ -74,23 +75,23 @@ struct RealTimeClipView_Previews: PreviewProvider {
 class RealTimeClipCameraModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     // The capture session used for real-time video.
     let session = AVCaptureSession()
-    
+   
     // Video data output for frame capture.
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let videoDataOutputQueue = DispatchQueue(label: "com.example.RealTimeClipVideoDataOutputQueue")
-    
+   
     // Queue to safely manage the frame buffer.
     private let bufferQueue = DispatchQueue(label: "com.example.RealTimeClipBufferQueue")
-    
+   
     // Buffer to hold the last 10 JPEG frames.
     private var frameBuffer: [Data] = []
-    
+   
     // Published flag to control sending frames.
     @Published var isSending: Bool = false
-    
+   
     // Published error message for UI feedback.
     @Published var errorMessage: String?
-    
+   
     /// Sets up the AVCaptureSession for live video capture.
     func setup() {
         #if targetEnvironment(simulator)
@@ -98,10 +99,10 @@ class RealTimeClipCameraModel: NSObject, ObservableObject, AVCaptureVideoDataOut
         print(errorMessage!)
         return
         #endif
-        
+       
         session.beginConfiguration()
         session.sessionPreset = .high
-        
+       
         // Use the front camera by default.
         guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else {
             errorMessage = "No camera available"
@@ -109,7 +110,7 @@ class RealTimeClipCameraModel: NSObject, ObservableObject, AVCaptureVideoDataOut
             session.commitConfiguration()
             return
         }
-        
+       
         do {
             let input = try AVCaptureDeviceInput(device: device)
             if session.canAddInput(input) {
@@ -126,11 +127,11 @@ class RealTimeClipCameraModel: NSObject, ObservableObject, AVCaptureVideoDataOut
             session.commitConfiguration()
             return
         }
-        
+       
         // Configure the video data output.
         videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
         videoDataOutput.alwaysDiscardsLateVideoFrames = true
-        
+       
         if session.canAddOutput(videoDataOutput) {
             session.addOutput(videoDataOutput)
             videoDataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
@@ -140,60 +141,54 @@ class RealTimeClipCameraModel: NSObject, ObservableObject, AVCaptureVideoDataOut
             session.commitConfiguration()
             return
         }
-        
+       
         session.commitConfiguration()
         session.startRunning()
     }
-    
+   
     /// Switches between the front and back cameras.
     func switchCamera() {
         #if targetEnvironment(simulator)
         print("Camera not available on simulator")
         return
         #else
-        session.beginConfiguration()
         guard let currentInput = session.inputs.first as? AVCaptureDeviceInput else {
             session.commitConfiguration()
             return
         }
         session.removeInput(currentInput)
-        
+       
         // Toggle camera position.
         let newPosition: AVCaptureDevice.Position = currentInput.device.position == .back ? .front : .back
         guard let newDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: newPosition) else {
             print("No device found for new position")
-            session.addInput(currentInput)
             session.commitConfiguration()
             return
         }
-        
+       
         do {
             let newInput = try AVCaptureDeviceInput(device: newDevice)
             if session.canAddInput(newInput) {
                 session.addInput(newInput)
-            } else {
-                session.addInput(currentInput)
             }
         } catch {
             print("Error switching camera: \(error)")
-            session.addInput(currentInput)
         }
-        session.commitConfiguration()
         #endif
     }
-    
+   
     /// Clears the frame buffer.
     func clearFrameBuffer() {
         bufferQueue.async {
             self.frameBuffer.removeAll()
         }
     }
-    
+   
     /// Delegate method called for each captured video frame.
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         // Only process frames if sending is enabled.
         guard isSending else { return }
-        
+       
         // Convert the sample buffer into a JPEG image.
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             print("Failed to get pixel buffer")
@@ -208,39 +203,41 @@ class RealTimeClipCameraModel: NSObject, ObservableObject, AVCaptureVideoDataOut
             return
         }
         CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
-        
+       
         let uiImage = UIImage(cgImage: cgImage)
         guard let jpegData = uiImage.jpegData(compressionQuality: 0.8) else {
             print("Failed to convert UIImage to JPEG")
             return
         }
-        
-        // Append frame data to buffer in a thread-safe manner.
+       
         bufferQueue.async { [weak self] in
             guard let self = self else { return }
+            
             self.frameBuffer.append(jpegData)
             
-            // Once 10 frames are cached, send them to the API.
-            if self.frameBuffer.count >= 10 {
-                let framesToSend = Array(self.frameBuffer.suffix(10))
+            if self.frameBuffer.count == 10 {
+                let framesToSend = self.frameBuffer
                 self.frameBuffer.removeAll()
-                self.sendFrames(frames: framesToSend)
+                
+                DispatchQueue.global(qos: .background).async {
+                    self.sendFrames(frames: framesToSend)
+                }
             }
         }
     }
-    
+   
     /// Sends an array of 10 JPEG frames to the FastAPI endpoint.
     private func sendFrames(frames: [Data]) {
-        guard let url = URL(string: "http://128.61.68.146:8000/upload_clip") else {
+        guard let url = URL(string: "http://128.61.68.146:8000/upload_clip/") else {
             print("Invalid URL for FastAPI endpoint")
             return
         }
-        
+       
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         let boundary = "Boundary-\(UUID().uuidString)"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
+       
         var body = Data()
         for (index, frameData) in frames.enumerated() {
             body.append("--\(boundary)\r\n".data(using: .utf8)!)
@@ -252,7 +249,7 @@ class RealTimeClipCameraModel: NSObject, ObservableObject, AVCaptureVideoDataOut
         }
         body.append("--\(boundary)--\r\n".data(using: .utf8)!)
         request.httpBody = body
-        
+       
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Error sending frames: \(error)")
@@ -279,9 +276,9 @@ struct RealTimeClipPreview: UIViewRepresentable {
             return layer as! AVCaptureVideoPreviewLayer
         }
     }
-    
+   
     let camera: RealTimeClipCameraModel
-    
+   
     func makeUIView(context: Context) -> VideoPreviewView {
         let view = VideoPreviewView()
         #if !targetEnvironment(simulator)
@@ -293,14 +290,17 @@ struct RealTimeClipPreview: UIViewRepresentable {
         #endif
         return view
     }
-    
+   
     func updateUIView(_ uiView: VideoPreviewView, context: Context) {}
 }
 
 // MARK: - Data Extension
 
 extension Data {
-    mutating func append(_ data: Data) {
-        self.append(data)
+    mutating func appendString(_ string: String) {
+        if let data = string.data(using: .utf8) {
+            self.append(data)
+        }
     }
 }
+
