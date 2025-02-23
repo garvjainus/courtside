@@ -4,6 +4,8 @@ import AVFoundation
 import UIKit
 
 struct UploadGameView: View {
+    @EnvironmentObject var gameManager: GameManager  // Inject the shared GameManager
+    
     @State private var selectedVideoURL: URL?
     @State private var showVideoPicker = false
     @State private var trimStart: Double = 0
@@ -13,104 +15,122 @@ struct UploadGameView: View {
     @State private var uploadMessage: String = ""
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                if let videoURL = selectedVideoURL {
-                    // Video preview
-                    VideoPlayer(player: AVPlayer(url: videoURL))
-                        .frame(height: 300)
-                        .cornerRadius(10)
-                        .padding()
-                    
-                    Text("Trim Video")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                    
-                    VStack {
-                        // Display trim start/end times
-                        HStack {
-                            Text("Start: \(formatTime(trimStart))")
+        Group {
+            if gameManager.isGameActive {
+                NavigationView {
+                    VStack(spacing: 20) {
+                        if let videoURL = selectedVideoURL {
+                            // Video preview
+                            VideoPlayer(player: AVPlayer(url: videoURL))
+                                .frame(height: 300)
+                                .cornerRadius(10)
+                                .padding()
+                            
+                            Text("Trim Video")
+                                .font(.headline)
                                 .foregroundColor(.white)
-                            Spacer()
-                            Text("End: \(formatTime(trimEnd))")
+                            
+                            VStack {
+                                // Display trim start/end times
+                                HStack {
+                                    Text("Start: \(formatTime(trimStart))")
+                                        .foregroundColor(.white)
+                                    Spacer()
+                                    Text("End: \(formatTime(trimEnd))")
+                                        .foregroundColor(.white)
+                                }
+                                .padding(.horizontal)
+                                
+                                // Slider for trim start
+                                Slider(value: $trimStart, in: 0...videoDuration, step: 0.1)
+                                    .accentColor(.green)
+                                    .padding(.horizontal)
+                                    .onChange(of: trimStart) { newValue in
+                                        if newValue > trimEnd {
+                                            trimStart = trimEnd
+                                        }
+                                    }
+                                
+                                // Slider for trim end
+                                Slider(value: $trimEnd, in: 0...videoDuration, step: 0.1)
+                                    .accentColor(.red)
+                                    .padding(.horizontal)
+                                    .onChange(of: trimEnd) { newValue in
+                                        if newValue < trimStart {
+                                            trimEnd = trimStart
+                                        }
+                                    }
+                            }
+                            
+                            // Submit (trim & upload) button
+                            Button(action: {
+                                trimAndUploadVideo()
+                            }) {
+                                if isUploading {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                        .padding()
+                                } else {
+                                    Text("Submit")
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                }
+                            }
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                            
+                            if !uploadMessage.isEmpty {
+                                Text(uploadMessage)
+                                    .foregroundColor(.white)
+                                    .padding()
+                            }
+                        } else {
+                            Text("Select a video to upload")
                                 .foregroundColor(.white)
                         }
-                        .padding(.horizontal)
                         
-                        // Slider for trim start
-                        Slider(value: $trimStart, in: 0...videoDuration, step: 0.1)
-                            .accentColor(.green)
-                            .padding(.horizontal)
-                            .onChange(of: trimStart) { newValue in
-                                if newValue > trimEnd {
-                                    trimStart = trimEnd
-                                }
-                            }
+                        Spacer()
                         
-                        // Slider for trim end
-                        Slider(value: $trimEnd, in: 0...videoDuration, step: 0.1)
-                            .accentColor(.red)
-                            .padding(.horizontal)
-                            .onChange(of: trimEnd) { newValue in
-                                if newValue < trimStart {
-                                    trimEnd = trimStart
-                                }
-                            }
-                    }
-                    
-                    // Submit (trim & upload) button
-                    Button(action: {
-                        trimAndUploadVideo()
-                    }) {
-                        if isUploading {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                .padding()
-                        } else {
-                            Text("Submit")
+                        // Button to open the video picker
+                        Button(action: {
+                            showVideoPicker = true
+                        }) {
+                            Text("Select Video")
                                 .foregroundColor(.white)
                                 .padding()
                                 .frame(maxWidth: .infinity)
                         }
+                        .background(Color.gray)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
                     }
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .padding(.horizontal)
-                    
-                    if !uploadMessage.isEmpty {
-                        Text(uploadMessage)
-                            .foregroundColor(.white)
-                            .padding()
+                    .padding()
+                    .background(Color.black.ignoresSafeArea())
+                    .navigationTitle("Upload Game Video")
+                    .sheet(isPresented: $showVideoPicker) {
+                        CustomVideoPicker(
+                            videoURL: $selectedVideoURL,
+                            videoDuration: $videoDuration,
+                            trimEnd: $trimEnd
+                        )
                     }
-                } else {
-                    Text("Select a video to upload")
-                        .foregroundColor(.white)
                 }
-                
-                Spacer()
-                
-                // Button to open the video picker
-                Button(action: {
-                    showVideoPicker = true
-                }) {
-                    Text("Select Video")
+            } else {
+                // Game not started – prompt the user to start a game.
+                VStack(spacing: 20) {
+                    Text("Please start a game first.")
+                        .font(.headline)
                         .foregroundColor(.white)
+                    NavigationLink("Go to Start Game", destination: StartGameView())
                         .padding()
-                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
-                .background(Color.gray)
-                .cornerRadius(10)
-                .padding(.horizontal)
-            }
-            .padding()
-            .background(Color.black.ignoresSafeArea())
-            .navigationTitle("Upload Game Video")
-            .sheet(isPresented: $showVideoPicker) {
-                CustomVideoPicker(
-                    videoURL: $selectedVideoURL,
-                    videoDuration: $videoDuration,
-                    trimEnd: $trimEnd
-                )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.ignoresSafeArea())
             }
         }
     }
@@ -197,7 +217,6 @@ struct UploadGameView: View {
         }.resume()
     }
 }
-
 // MARK: - CustomVideoPicker
 
 /// A custom picker to let users select a video from their photo library.

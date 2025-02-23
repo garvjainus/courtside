@@ -2,64 +2,82 @@ import SwiftUI
 import AVFoundation
 import UIKit
 
-// MARK: - RealTimeClipView
-
 struct RealTimeClipView: View {
     @StateObject private var realTimeClipCameraModel = RealTimeClipCameraModel()
-   
+    @EnvironmentObject var gameManager: GameManager  // Inject the shared GameManager
+    
     var body: some View {
-        ZStack {
-            // Display the live camera feed.
-            RealTimeClipPreview(camera: realTimeClipCameraModel)
-           
-            VStack {
-                HStack {
-                    Spacer()
-                    // Switch Camera Button
-                    Button(action: {
-                        realTimeClipCameraModel.switchCamera()
-                    }) {
-                        Label("Switch Camera", systemImage: "arrow.triangle.2.circlepath.camera")
-                            .padding()
-                            .background(Color.black.opacity(0.5))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+        Group {
+            if gameManager.isGameActive {
+                ZStack {
+                    // Display the live camera feed.
+                    RealTimeClipPreview(camera: realTimeClipCameraModel)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .ignoresSafeArea() // Ensure it extends beyond safe areas
+                    
+                    VStack {
+                        // Switch Camera Button
+                        Button(action: {
+                            realTimeClipCameraModel.switchCamera()
+                        }) {
+                            Label("Switch Camera", systemImage: "arrow.triangle.2.circlepath.camera")
+                                .padding()
+                                .background(Color.black.opacity(0.5))
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .padding(.top, 600)
+                        .padding(.bottom, 30)
+                        .padding(.horizontal, 50)
+                        
+                        Spacer()
+                        
+                        // Red Toggle Button to Start/Stop Sending Frames
+                        Button(action: {
+                            realTimeClipCameraModel.isSending.toggle()
+                            // If stopping, clear any stored frames.
+                            if !realTimeClipCameraModel.isSending {
+                                realTimeClipCameraModel.clearFrameBuffer()
+                            }
+                        }) {
+                            Text(realTimeClipCameraModel.isSending ? "Stop Sending" : "Start Sending")
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(realTimeClipCameraModel.isSending ? Color.green : Color.red)
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                        }
+                        .padding(.bottom, 30)
+                        
+                        if let error = realTimeClipCameraModel.errorMessage {
+                            Text(error)
+                                .foregroundColor(.red)
+                                .padding()
+                        }
                     }
-                    .padding(.top, 100)
                 }
-               
-                Spacer()
-               
-                // Red Toggle Button to Start/Stop Sending Frames
-                Button(action: {
-                    realTimeClipCameraModel.isSending.toggle()
-                    // If stopping, clear any stored frames.
-                    if !realTimeClipCameraModel.isSending {
-                        realTimeClipCameraModel.clearFrameBuffer()
-                    }
-                }) {
-                    Text(realTimeClipCameraModel.isSending ? "Stop Sending" : "Start Sending")
+                .onAppear {
+                    realTimeClipCameraModel.setup()
+                }
+                .onDisappear {
+                    realTimeClipCameraModel.session.stopRunning()
+                }
+            } else {
+                // Game not started – prompt the user to start a game.
+                VStack(spacing: 20) {
+                    Text("Please start a game first.")
+                        .font(.headline)
                         .foregroundColor(.white)
+                    NavigationLink("Go to Start Game", destination: StartGameView())
                         .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(realTimeClipCameraModel.isSending ? Color.green : Color.red)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
                         .cornerRadius(10)
-                        .padding(.horizontal, 20)
                 }
-                .padding(.bottom, 30)
-               
-                if let error = realTimeClipCameraModel.errorMessage {
-                    Text(error)
-                        .foregroundColor(.red)
-                        .padding()
-                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.ignoresSafeArea())
             }
-        }
-        .onAppear {
-            realTimeClipCameraModel.setup()
-        }
-        .onDisappear {
-            realTimeClipCameraModel.session.stopRunning()
         }
     }
 }

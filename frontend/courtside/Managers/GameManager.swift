@@ -36,4 +36,4 @@ enum Team {
 struct GameStats {
     var timestamp = Date()
     // Add more game statistics
-} 
+}
