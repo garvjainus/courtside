@@ -11,6 +11,8 @@
 		1C1D09CA78DA1D0F133C7859 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		320BA8752D6A955300E49277 /* RealTimeClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320BA8742D6A955300E49277 /* RealTimeClipView.swift */; };
 		320BA8772D6AAE7600E49277 /* UploadGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320BA8762D6AAE7500E49277 /* UploadGameView.swift */; };
+		320BA8792D6B073700E49277 /* WatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320BA8782D6B073700E49277 /* WatchView.swift */; };
+		320BA87B2D6B07DE00E49277 /* VideoUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320BA87A2D6B07DE00E49277 /* VideoUploadManager.swift */; };
 		3287A8C12D6A24DB00B8E60C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */; };
 		3287A8C32D6A25DD00B8E60C /* ShotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C22D6A25DD00B8E60C /* ShotModel.swift */; };
 		3287A8C52D6A25F000B8E60C /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C42D6A25F000B8E60C /* GameModel.swift */; };
@@ -63,6 +65,8 @@
 		2E315048AC9D4710C23AF222 /* Pods-courtsideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.release.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.release.xcconfig"; sourceTree = "<group>"; };
 		320BA8742D6A955300E49277 /* RealTimeClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeClipView.swift; sourceTree = "<group>"; };
 		320BA8762D6AAE7500E49277 /* UploadGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadGameView.swift; sourceTree = "<group>"; };
+		320BA8782D6B073700E49277 /* WatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchView.swift; sourceTree = "<group>"; };
+		320BA87A2D6B07DE00E49277 /* VideoUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoUploadManager.swift; sourceTree = "<group>"; };
 		3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		3287A8C22D6A25DD00B8E60C /* ShotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotModel.swift; sourceTree = "<group>"; };
 		3287A8C42D6A25F000B8E60C /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 				32EB17BC2D69AB3900BBAA50 /* AuthenticationManager.swift */,
 				32EB17BD2D69AB3900BBAA50 /* GameManager.swift */,
 				3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */,
+				320BA87A2D6B07DE00E49277 /* VideoUploadManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 				62E68D622D6A34D2002FE46C /* VideoPlayerView.swift */,
 				320BA8742D6A955300E49277 /* RealTimeClipView.swift */,
 				320BA8762D6AAE7500E49277 /* UploadGameView.swift */,
+				320BA8782D6B073700E49277 /* WatchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -507,6 +513,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E768A6D92D69B6CF006659A3 /* StartGameView.swift in Sources */,
+				320BA87B2D6B07DE00E49277 /* VideoUploadManager.swift in Sources */,
 				3287A8C32D6A25DD00B8E60C /* ShotModel.swift in Sources */,
 				62E68D5F2D6A3420002FE46C /* VideoPicker.swift in Sources */,
 				E768A6D52D69B6B3006659A3 /* AnalyticsView.swift in Sources */,
@@ -526,6 +533,7 @@
 				E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */,
 				32EB17DB2D69FFBA00BBAA50 /* SideMenuView.swift in Sources */,
 				3287A8C72D6A260100B8E60C /* UserModel.swift in Sources */,
+				320BA8792D6B073700E49277 /* WatchView.swift in Sources */,
 				32E2ED762D699E8D00E15762 /* courtsideApp.swift in Sources */,
 				32EB17CB2D69AB4000BBAA50 /* HomeView.swift in Sources */,
 				3287A8C12D6A24DB00B8E60C /* FirestoreManager.swift in Sources */,
