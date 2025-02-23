@@ -1,7 +1,85 @@
-from dataclasses import dataclass, field
+import cv2
+import json
+from fastapi import UploadFile, File
+import torch
+import numpy as np
+import coremltools as ct
+from ultralytics import YOLO
+from PIL import Image
+from dataclasses import dataclass, field, asdict
 from typing import List, Optional, Dict, Any
 
-# --- Data Structures ---
+# --- YOLO Detection Setup ---
+
+# Load two YOLO models: one for person classification and one for general object detection.
+model = YOLO('../runs/detect/person_classifier/weights/best.pt')
+yolo_model = YOLO("best.pt")
+
+
+def process_frame(image: any):
+    """Runs YOLO model on an image and predicts user ID."""
+    # Convert image from BGR to RGB.
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    # Run inference using the person classifier model.
+    results = model(image)
+    detections = []
+    for result in results:
+        for box in result.boxes:
+            # Extract bounding box coordinates, confidence, and use class id as user_id.
+            x_min, y_min, x_max, y_max = box.xyxy[0].tolist()
+            confidence = box.conf[0].item()
+            cls = int(box.cls[0].item())
+            detections.append({
+                "user_id": cls,  # Using class ID as the unique user ID.
+                "bounding_box": [x_min, y_min, x_max, y_max],
+                "confidence": confidence
+            })
+    return detections
+
+
+def process_video(video_path: str):
+    """
+    Processes video, detects ball, rim, and person, and predicts user ID if a person is detected.
+    Returns a list of frame detection dictionaries.
+    Each dictionary has keys: "ball", "rim", and "user_id".
+    """
+    cap = cv2.VideoCapture(video_path)
+    frame_results = []
+    
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+        
+        # Run general detection to find all objects.
+        results = yolo_model(frame)
+        frame_detections = {"ball": [], "rim": [], "user_id": []}
+        
+        for box in results[0].boxes:
+            cls = int(box.cls.item())
+            x_min, y_min, x_max, y_max = box.xyxy[0].tolist()
+            confidence = box.conf[0].item()
+            
+            if cls == 1:  # Person detected
+                user_detections = process_frame(frame)  # Get user details.
+                frame_detections["user_id"].extend(user_detections)
+            elif cls == 0:  # Ball detected
+                frame_detections["ball"].append({
+                    "bounding_box": [x_min, y_min, x_max, y_max],
+                    "confidence": confidence
+                })
+            elif cls == 2:  # Rim detected
+                frame_detections["rim"].append({
+                    "bounding_box": [x_min, y_min, x_max, y_max],
+                    "confidence": confidence
+                })
+        
+        frame_results.append(frame_detections)
+    
+    cap.release()
+    return frame_results
+
+# --- Event Generation & Stats Update Code ---
 
 @dataclass
 class BoundingBox:
@@ -27,7 +105,7 @@ class FrameDetections:
 class GameEvent:
     event_type: str          # "pass", "shot", "turnover", "steal", "dribble"
     time: float              # Timestamp (in seconds)
-    details: Dict[str, Any]  # e.g., {"from": playerA, "to": playerB, ...}
+    details: Dict[str, Any]  # Additional event details
 
 @dataclass
 class PlayerStats:
@@ -39,15 +117,13 @@ class PlayerStats:
     offensive_rebounds: int = 0
     defensive_rebounds: int = 0
 
-# Our ongoing stats structure: dictionary mapping player_id to PlayerStats.
+# Global dictionary to hold ongoing player stats.
 player_stats: Dict[int, PlayerStats] = {}
 
 def get_or_create_player_stats(player_id: int) -> PlayerStats:
     if player_id not in player_stats:
         player_stats[player_id] = PlayerStats(player_id=player_id)
     return player_stats[player_id]
-
-# --- Helper Functions for Detection and State Extraction ---
 
 def is_near(box1, box2):
     """Check if two bounding boxes are near using a center-distance method."""
@@ -104,25 +180,28 @@ def detect_shot_results(frame: FrameDetections) -> List[str]:
 
 def get_frame_state(frame: dict) -> Dict[str, Any]:
     """
-    Given a frame (as a parsed JSON dictionary), extract a simple state.
-    Expects keys: "ball", "rim", and "user_id".
+    Converts a detection dictionary (from process_video) into a simplified state.
+    Expected keys: "ball", "rim", and "user_id".
     """
-    detections = FrameDetections(
-        balls=[Detection("ball", BoundingBox(*ball["bounding_box"]), ball["confidence"])
-               for ball in frame.get("ball", [])],
-        rims=[Detection("rim", BoundingBox(*rim["bounding_box"]), rim["confidence"])
-              for rim in frame.get("rim", [])],
-        players=[Detection("player", BoundingBox(*player["bounding_box"]), player["confidence"], player.get("user_id"))
-                 for player in frame.get("user_id", [])]
-    )
+    # Convert ball detections to Detection objects.
+    balls = [Detection("ball", BoundingBox(*ball["bounding_box"]), ball["confidence"])
+             for ball in frame.get("ball", [])]
+    # Convert rim detections.
+    rims = [Detection("rim", BoundingBox(*rim["bounding_box"]), rim["confidence"])
+            for rim in frame.get("rim", [])]
+    # Convert player detections.
+    players = [Detection("player", BoundingBox(*player["bounding_box"]), player["confidence"], player.get("user_id"))
+               for player in frame.get("user_id", [])]
+    detections = FrameDetections(balls=balls, rims=rims, players=players)
+    
     possession = determine_possession(detections)
     shot = bool(detect_shots(detections))
     return {"possession": possession, "shot": shot}
 
 def aggregate_window_state(window_states: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Aggregate states from a sliding window of frames.
-    Here, we simply take the last frame’s possession and OR any shot detection.
+    Aggregates states from a sliding window of frames.
+    Uses the last frame's possession and OR's shot detections across the window.
     """
     aggregated_possession = window_states[-1]["possession"]
     aggregated_shot = any(state["shot"] for state in window_states)
@@ -133,17 +212,15 @@ def determine_event_change(prev_state: Dict[str, Any],
                            frame_index: int,
                            frame_rate: float = 30.0) -> Optional[GameEvent]:
     """
-    Compare two aggregated states and determine if an event is triggered.
+    Compares two aggregated states and determines if a game event should be triggered.
     """
     timestamp = frame_index / frame_rate
-    # Check for shot: prioritize if the shot was not seen before.
     if not prev_state["shot"] and curr_state["shot"]:
         return GameEvent(
             event_type="shot",
             time=timestamp,
-            details={"possession": curr_state["possession"], "result": "Undecided"}  # Extend as needed.
+            details={"possession": curr_state["possession"], "result": "Undecided"}
         )
-    # Possession change might indicate a pass, turnover, or steal.
     if prev_state["possession"] != curr_state["possession"]:
         if prev_state["possession"] is not None and curr_state["possession"] is not None:
             return GameEvent(
@@ -163,7 +240,6 @@ def determine_event_change(prev_state: Dict[str, Any],
                 time=timestamp,
                 details={"gained_by": curr_state["possession"]}
             )
-    # Dribbling: if possession remains constant over the window.
     if curr_state["possession"] is not None and prev_state["possession"] == curr_state["possession"]:
         return GameEvent(
             event_type="dribble",
@@ -172,18 +248,14 @@ def determine_event_change(prev_state: Dict[str, Any],
         )
     return None
 
-# --- Stats Update Function ---
-
 def update_player_stats(event: GameEvent):
     """
-    Update the player's stats based on the event triggered.
+    Updates player statistics based on the detected event.
     """
-    # For a shot event, if the shot is later confirmed as "Made", add points.
     if event.event_type == "shot":
         shooter = event.details.get("possession")
         if shooter is not None:
             ps = get_or_create_player_stats(shooter)
-            # Assume a made shot is worth 2 points; extend logic as needed.
             if event.details.get("result") == "Made":
                 ps.points += 2
     elif event.event_type == "pass":
@@ -201,46 +273,64 @@ def update_player_stats(event: GameEvent):
         if player is not None:
             ps = get_or_create_player_stats(player)
             ps.steals += 1
-    # Offensive and defensive rebounds can be added when that event is detected.
-    # For example:
-    # elif event.event_type == "offensive_rebound":
-    #     ps = get_or_create_player_stats(event.details.get("player"))
-    #     ps.offensive_rebounds += 1
-    # elif event.event_type == "defensive_rebound":
-    #     ps = get_or_create_player_stats(event.details.get("player"))
-    #     ps.defensive_rebounds += 1
-
-# --- Sliding Window Processing Algorithm ---
 
 def process_frames_with_sliding_window(frames: List[dict],
-                                       window_size: int = 3,
+                                       window_size: int = 10,
                                        frame_rate: float = 30.0) -> List[GameEvent]:
     """
-    Process a list of frames (as parsed JSON) using a sliding window.
-    When an aggregated state change is detected, trigger an event and update player stats.
-    Returns a list of GameEvent objects.
+    Processes a list of detection dictionaries (one per frame) using a sliding window.
+    Generates game events when state changes occur and updates player stats.
     """
     events: List[GameEvent] = []
     total_frames = len(frames)
     if total_frames < window_size:
         return events
 
-    # Initialize the sliding window with the first window_size frames.
     window_states = [get_frame_state(frame) for frame in frames[:window_size]]
     prev_agg_state = aggregate_window_state(window_states)
-
-    # Slide the window over frames one by one.
+    
     for i in range(window_size, total_frames):
         window_states.pop(0)
         window_states.append(get_frame_state(frames[i]))
         curr_agg_state = aggregate_window_state(window_states)
-        
+       
         if curr_agg_state != prev_agg_state:
             event = determine_event_change(prev_agg_state, curr_agg_state, frame_index=i, frame_rate=frame_rate)
             if event is not None:
                 events.append(event)
-                # Update the ongoing stats for players based on this event.
                 update_player_stats(event)
         prev_agg_state = curr_agg_state
 
     return events
+
+def process_video_and_generate_events(video_path: str,
+                                      window_size: int = 10,
+                                      frame_rate: float = 30.0,
+                                      output_json_path: str = "../game_results.json"):
+    """
+    Unified function that:
+      1. Processes the video using YOLO to get detection data.
+      2. Uses a sliding window algorithm to generate game events.
+      3. Updates player statistics.
+      4. Stores the resulting events and stats as JSON.
+    """
+    # Step 1: Run detection on the video.
+    frames_json = process_video(video_path)
+    
+    # Step 2: Process frames with a sliding window to generate events.
+    events = process_frames_with_sliding_window(frames_json, window_size, frame_rate)
+    
+    # Serialize events and player stats.
+    events_serialized = [asdict(event) for event in events]
+    player_stats_serialized = {pid: asdict(stats) for pid, stats in player_stats.items()}
+    
+    output = {
+        "game_events": events_serialized,
+        "player_stats": player_stats_serialized
+    }
+    
+    # Step 3: Write the JSON output.
+    with open(output_json_path, "w") as f:
+        json.dump(output, f, indent=4)
+    
+    print(f"Processed video and stored output to {output_json_path}")

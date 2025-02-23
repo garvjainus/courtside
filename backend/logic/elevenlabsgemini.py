@@ -16,7 +16,7 @@ from google.genai import types
 # Gemini API configuration (replace with your actual endpoint and key)
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-client = ElevenLabs()
+client1 = ElevenLabs()
 
 
 # -------------------------------
@@ -86,7 +86,7 @@ def text_to_speech_elevenlabs(text, output_filename="sports_commentary.mp3"):
     Convert the provided text to an audio file using the ElevenLabs API.
     Saves the audio file to the specified output filename.
     """
-    audio = client.text_to_speech.convert(
+    audio = client1.text_to_speech.convert(
         text=text,
         voice_id="J29vD33N1CtxCmqQRPOHJ",
         model_id="eleven_multilingual_v2",
