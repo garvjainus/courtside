@@ -1,7 +1,7 @@
 import os
 import json
 from fastapi import APIRouter, UploadFile, File
-from logic.predictions_logic import process_video_and_generate_events
+from logic.predictions_logic import process_game  # updated unified video processing function
 
 predictions_routes = APIRouter()
 
@@ -17,15 +17,13 @@ async def predict_video(file: UploadFile = File(...)):
     with open(video_path, "wb") as f:
         f.write(await file.read())
     
-    # Define the output path for the JSON file.
+    # Process the video using the new process_game function.
+    results = process_game(video_path)
+    
+    # Optionally, save the output to a JSON file.
     output_json_path = f"outputs/{file.filename}.json"
     os.makedirs("outputs", exist_ok=True)
+    with open(output_json_path, "w") as f:
+        json.dump(results, f)
     
-    # Process the video and generate events using our unified logic.
-    process_video_and_generate_events(video_path, window_size=10, frame_rate=30.0, output_json_path=output_json_path)
-    
-    # Load and return the output JSON.
-    with open(output_json_path, "r") as f:
-        output_data = json.load(f)
-    
-    return output_data
+    return results
