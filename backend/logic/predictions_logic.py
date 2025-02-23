@@ -36,8 +36,8 @@ from PIL import Image
     
 #     return detections
 
-model = YOLO('../runs/detect/person_classifier/weights/best.pt')
-yolo_model = YOLO("best.pt")
+model = YOLO('backend/runs/detect/person_classifier/weights/best.pt')
+yolo_model = YOLO("backend/best.pt")
 
 
 def process_frame(image: str):
@@ -81,10 +81,15 @@ def process_video(video_path: str):
         results = yolo_model(frame)
         frame_detections = {"ball": [], "rim": [], "user_id": []}
         
+        detected_classes = [int(box.cls.item()) for box in results[0].boxes]
+        print("Detected classes:", detected_classes)
+
         for box in results[0].boxes:
             cls = int(box.cls.item())
             x_min, y_min, x_max, y_max = box.xyxy[0].tolist()
             confidence = box.conf[0].item()
+
+            print(f"Detected class {cls} with confidence {confidence}")
             
             if cls == 1:  # Person detected
                 user_detections = process_frame(frame)  # Pass frame directly
