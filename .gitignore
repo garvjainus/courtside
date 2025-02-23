@@ -27,7 +27,6 @@ Thumbs.db
 # Ignore images
 backend/dataset/
 
-backend/runs/
 
 backend/uploads/
 

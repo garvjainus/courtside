@@ -4,7 +4,7 @@ import cv2
 import yaml
 from ultralytics import YOLO
 import shutil
-
+    
 # Define directories and create necessary folders
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
