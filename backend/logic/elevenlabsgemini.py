@@ -1,9 +1,11 @@
 import requests
 import json
 import os
-import dotenv
+from dotenv import load_dotenv
+from elevenlabs.client import ElevenLabs
+from elevenlabs import play
 
-dotenv.load_dotenv()
+load_dotenv()
 
 from google import genai
 from google.genai import types
@@ -14,10 +16,8 @@ from google.genai import types
 # Gemini API configuration (replace with your actual endpoint and key)
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-# ElevenLabs API configuration (replace with your actual API key and desired voice ID)
-ELEVENLABS_API_ENDPOINT = "https://api.elevenlabs.io/v1/text-to-speech"
-ELEVENLABS_API_KEY = "your_elevenlabs_api_key"
-VOICE_ID = "your_voice_id"  # e.g., "21m00Tcm4TlvDq8ikWAM"
+client = ElevenLabs()
+
 
 # -------------------------------
 # Helper Functions
@@ -86,24 +86,16 @@ def text_to_speech_elevenlabs(text, output_filename="sports_commentary.mp3"):
     Convert the provided text to an audio file using the ElevenLabs API.
     Saves the audio file to the specified output filename.
     """
-    # Construct the ElevenLabs endpoint URL with the voice ID.
-    url = f"{ELEVENLABS_API_ENDPOINT}/{VOICE_ID}"
-    headers = {
-        "xi-api-key": ELEVENLABS_API_KEY,
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "text": text,
-        "voice_settings": {
-            "stability": 0.5,
-            "similarity_boost": 0.75
-        }
-    }
-    response = requests.post(url, headers=headers, json=payload)
-    if response.status_code == 200:
+    audio = client.text_to_speech.convert(
+        text=text,
+        voice_id="J29vD33N1CtxCmqQRPOHJ",
+        model_id="eleven_multilingual_v2",
+        output_format="mp3_44100_128",
+    )
+    if audio.status_code == 200:
         # Save the returned audio binary content.
         with open(output_filename, "wb") as f:
-            f.write(response.content)
+            f.write(audio.content)
         print(f"Audio commentary saved as {output_filename}")
     else:
-        raise Exception(f"ElevenLabs API error {response.status_code}: {response.text}")
+        raise Exception(f"ElevenLabs API error {audio.status_code}: {audio.text}")
