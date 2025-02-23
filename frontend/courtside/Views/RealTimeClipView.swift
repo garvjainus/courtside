@@ -27,7 +27,7 @@ struct RealTimeClipView: View {
                     }
                     .padding()
                 }
-                
+                    
                 Spacer()
                 
                 // Red Toggle Button to Start/Stop Sending Frames

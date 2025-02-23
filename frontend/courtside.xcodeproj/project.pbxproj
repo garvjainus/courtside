@@ -10,6 +10,7 @@
 		0612EB189AE0579F707100E4 /* Pods_courtside.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F3624BA8D12B8BCA06881C /* Pods_courtside.framework */; };
 		1C1D09CA78DA1D0F133C7859 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		320BA8752D6A955300E49277 /* RealTimeClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320BA8742D6A955300E49277 /* RealTimeClipView.swift */; };
+		320BA8772D6AAE7600E49277 /* UploadGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320BA8762D6AAE7500E49277 /* UploadGameView.swift */; };
 		3287A8C12D6A24DB00B8E60C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */; };
 		3287A8C32D6A25DD00B8E60C /* ShotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C22D6A25DD00B8E60C /* ShotModel.swift */; };
 		3287A8C52D6A25F000B8E60C /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287A8C42D6A25F000B8E60C /* GameModel.swift */; };
@@ -61,6 +62,7 @@
 		0FD2CF0963BB2059FB588009 /* Pods-courtsideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.debug.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2E315048AC9D4710C23AF222 /* Pods-courtsideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courtsideTests.release.xcconfig"; path = "Target Support Files/Pods-courtsideTests/Pods-courtsideTests.release.xcconfig"; sourceTree = "<group>"; };
 		320BA8742D6A955300E49277 /* RealTimeClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeClipView.swift; sourceTree = "<group>"; };
+		320BA8762D6AAE7500E49277 /* UploadGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadGameView.swift; sourceTree = "<group>"; };
 		3287A8C02D6A24DB00B8E60C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		3287A8C22D6A25DD00B8E60C /* ShotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotModel.swift; sourceTree = "<group>"; };
 		3287A8C42D6A25F000B8E60C /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				62E68D5E2D6A3420002FE46C /* VideoPicker.swift */,
 				62E68D622D6A34D2002FE46C /* VideoPlayerView.swift */,
 				320BA8742D6A955300E49277 /* RealTimeClipView.swift */,
+				320BA8762D6AAE7500E49277 /* UploadGameView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				320BA8752D6A955300E49277 /* RealTimeClipView.swift in Sources */,
 				E768A6D72D69B6C0006659A3 /* FriendsView.swift in Sources */,
 				32EB17D12D69AB4000BBAA50 /* GameHistoryView.swift in Sources */,
+				320BA8772D6AAE7600E49277 /* UploadGameView.swift in Sources */,
 				3287A8C52D6A25F000B8E60C /* GameModel.swift in Sources */,
 				32E2ED782D699E8D00E15762 /* ContentView.swift in Sources */,
 				E768A6D32D69B6A7006659A3 /* StatsView.swift in Sources */,

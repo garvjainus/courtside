@@ -26,8 +26,8 @@ struct HomeView: View {
                             GameHistoryView(showMenu: $showMenu)
                         case "StartGame":
                             StartGameView()
-                        case "Friends":
-                            FriendsView()
+                        case "UploadGame":
+                            UploadGameView()
                         default:
                             EmptyView()
                         }
@@ -115,7 +115,7 @@ struct CustomSideMenuView: View {
                             showMenu = false
                         }
                         
-                        MenuButton(title: "Play Game", icon: "🏀") {
+                        MenuButton(title: "Live Game", icon: "🏀") {
                             selectedTab = "PlayGame"
                             showMenu = false
                         }
@@ -140,8 +140,8 @@ struct CustomSideMenuView: View {
                             showMenu = false
                         }
                         
-                        MenuButton(title: "Friends", icon: "👭") {
-                            selectedTab = "Friends"
+                        MenuButton(title: "Upload Game", icon: "👭") {
+                            selectedTab = "UploadGame"
                             showMenu = false
                         }
                     }
