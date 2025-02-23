@@ -25,13 +25,34 @@ print("DATASET_DIR =", DATASET_DIR)
 # Load the YOLO model once so it can be reused
 yolo_model = YOLO("yolov8n.pt")
 
+from pymediainfo import MediaInfo
+
+def get_video_rotation(video_path):
+    """Extracts rotation metadata from the video."""
+    media_info = MediaInfo.parse(video_path)
+    for track in media_info.tracks:
+        if track.track_type == "Video" and hasattr(track, "rotation"):
+            return int(float(track.rotation))  # Convert to float first, then cast to int
+    return 0  # Default to no rotation
+
 def extract_frames(video_path: str, person_id: int, person_name: str):
     cap = cv2.VideoCapture(video_path)
     frame_id = 0
+
+    rotation = get_video_rotation(video_path)
+
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
             break
+
+        # Automatically rotate frames if needed
+        if rotation == 90:
+            frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+        elif rotation == 180:
+            frame = cv2.rotate(frame, cv2.ROTATE_180)
+        elif rotation == 270:
+            frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
         # Randomly select a dataset split
         dataset_split = random.choices(["train", "test", "valid"], [0.7, 0.15, 0.15])[0]
@@ -116,7 +137,7 @@ def train_model_logic():
     
     # Export the trained model to CoreML format
     model_coreml = yolo_model.export(format="coreml")
-    model_coreml.save("person_classifier.mlmodel")
+    # model_coreml.save("person_classifier.mlmodel")
     
     
     # clear dir
@@ -146,7 +167,6 @@ def test_model_logic(image_path: str):
                 "confidence": box.conf[0].item()
             })
     return detections
-
 
 # also creates runs folder
 def reset_dataset_dir():

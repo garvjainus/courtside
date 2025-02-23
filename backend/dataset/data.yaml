@@ -1,6 +1,6 @@
 names:
-- avyu_a
-- emi_b
+- my_vid
+- test_a
 nc: 2
 test: ./test
 train: ./train
