@@ -297,7 +297,7 @@ struct StartGameView: View {
     }
     
     func trainModel() {
-        let url = URL(string: "http://128.61.68.146:8000/train_model")!
+        let url = URL(string: "http://128.61.68.146:8000/train_model/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
