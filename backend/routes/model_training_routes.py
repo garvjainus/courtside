@@ -7,9 +7,9 @@ from typing import List
 model_routes = APIRouter()
 
 @model_routes.post("/upload_clips/")
-async def upload_clips(files: List[UploadFile] = File(...)):
+async def upload_clips(frames: List[UploadFile]):
     uploaded_files = []
-    for file in files:
+    for file in frames:
         file_path = f"./live_frames/{file.filename}"
         with open(file_path, "wb") as f:
             f.write(await file.read())
@@ -20,7 +20,7 @@ async def upload_clips(files: List[UploadFile] = File(...)):
 
 @model_routes.post("/upload_game/")
 async def upload_game(file: UploadFile = File(...)):
-    file_path = f"./uploads/{file.filename}"  # Define the save path
+    file_path = f"./games/{file.filename}"  # Define the save path
     with open(file_path, "wb") as f:
         f.write(await file.read())  # Asynchronously write the file
     return {"filename": file.filename, "message": "File uploaded successfully"}

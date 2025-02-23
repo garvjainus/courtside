@@ -16,9 +16,7 @@ struct FriendsView: View {
                 .padding()
             
             // Add your friends content here
-            Text("No friends added yet")
-                .foregroundColor(.white)
-                .padding()
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.ignoresSafeArea())
