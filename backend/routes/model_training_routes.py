@@ -2,10 +2,28 @@ import os
 from fastapi import APIRouter, UploadFile, File
 from logic.model_training_logic import UPLOAD_DIR, DATASET_DIR, process_videos, train_model_logic, test_model_logic, reset_dataset_dir
 import shutil
+from typing import List
 
 model_routes = APIRouter()
 
+@model_routes.post("/upload_clips/")
+async def upload_clips(frames: List[UploadFile]):
+    uploaded_files = []
+    for file in frames:
+        file_path = f"./live_frames/{file.filename}"
+        with open(file_path, "wb") as f:
+            f.write(await file.read())
+        uploaded_files.append(file.filename)
+    
+    return {"uploaded_files": uploaded_files, "message": "Files uploaded successfully"}
 
+
+@model_routes.post("/upload_game/")
+async def upload_game(file: UploadFile = File(...)):
+    file_path = f"./games/{file.filename}"  # Define the save path
+    with open(file_path, "wb") as f:
+        f.write(await file.read())  # Asynchronously write the file
+    return {"filename": file.filename, "message": "File uploaded successfully"}
 
 @model_routes.post("/upload_video/")
 async def upload_video(file: UploadFile = File(...), player_name: str = "", player_team: str = ""):
@@ -17,9 +35,7 @@ async def upload_video(file: UploadFile = File(...), player_name: str = "", play
     
     with open(video_path, "wb") as f:
         f.write(await file.read())
-    
     reset_dataset_dir()
-
     
     return {"filename": new_filename}
 

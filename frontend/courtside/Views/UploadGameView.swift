@@ -185,7 +185,7 @@ struct UploadGameView: View {
     
     // Uploads the trimmed video to FastAPI endpoint /upload_game
     func uploadVideo(fileURL: URL) {
-        let url = URL(string: "http://128.61.68.146:8000/upload_game")!
+        let url = URL(string: "http://128.61.68.146:8000/upload_game/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "accept")

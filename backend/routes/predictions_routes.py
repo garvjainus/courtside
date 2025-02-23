@@ -7,6 +7,7 @@ predictions_routes = APIRouter()
 async def predict_video(file: UploadFile = File(...)):
     """Receives a video, runs YOLO prediction, and returns detections for ball, rim, and user ID, including actions."""
     video_path = f"uploads/{file.filename}"
+    print(video_path)
     with open(video_path, "wb") as f:
         f.write(await file.read())
     

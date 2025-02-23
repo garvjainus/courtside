@@ -246,7 +246,7 @@ class RealTimeClipCameraModel: NSObject, ObservableObject, AVCaptureVideoDataOut
    
     /// Sends an array of 10 JPEG frames to the FastAPI endpoint.
     private func sendFrames(frames: [Data]) {
-        guard let url = URL(string: "http://128.61.68.146:8000/upload_clip/") else {
+        guard let url = URL(string: "http://128.61.68.146:8000/upload_clips/") else {
             print("Invalid URL for FastAPI endpoint")
             return
         }

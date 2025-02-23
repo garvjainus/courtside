@@ -23,3 +23,5 @@ trained_persons/
 # Ignore system files
 .DS_Store
 Thumbs.db
+
+xcuserdata/
