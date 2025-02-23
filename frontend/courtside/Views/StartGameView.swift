@@ -11,7 +11,7 @@ struct StartGameView: View {
     @State private var showRecordingScreen = false
     @State private var showSummaryScreen = false
     @StateObject private var cameraModel = CameraModel()
-    
+    @EnvironmentObject var gameManager: GameManager  // Inject the shared GameManager
     
     var body: some View {
         VStack {
@@ -83,12 +83,15 @@ struct StartGameView: View {
                 }
             }
             Button("Confirm Players") {
+                // When confirming players, mark the game as started
                 currentStep = 1
                 currentPlayerIndex = 0
             }
             .buttonStyle(.borderedProminent)
         }
     }
+    
+    // (recordVideosView and summaryView remain unchanged)
     
     var recordVideosView: some View {
         VStack {
@@ -204,7 +207,6 @@ struct StartGameView: View {
             }
         }
     }
-
     
     var summaryView: some View {
         VStack {
@@ -212,12 +214,12 @@ struct StartGameView: View {
                 .font(.title)
             List {
                 Section(header: Text("Team A")) {
-                    ForEach(teamAPlayers, id: \..self) { player in
+                    ForEach(teamAPlayers, id: \.self) { player in
                         Text(player)
                     }
                 }
                 Section(header: Text("Team B")) {
-                    ForEach(teamBPlayers, id: \..self) { player in
+                    ForEach(teamBPlayers, id: \.self) { player in
                         Text(player)
                     }
                 }
@@ -226,20 +228,32 @@ struct StartGameView: View {
                 trainModel()
             }
             .buttonStyle(.borderedProminent)
-            Button("Go Back") {
-                        if currentStep > 0 {
-                            currentStep -= 1
-                        }
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+            .frame(maxWidth: .infinity) // Ensures uniform width
+            .padding()
 
+            Button("Finish Initialization") {
+                // At this point, the full flow is complete.
+                // Mark the game as started so other views know they can proceed.
+                gameManager.startNewGame()
+            }
+            .buttonStyle(.borderedProminent)
+            .frame(maxWidth: .infinity) // Ensures uniform width
+            .padding()
+
+            Button("Go Back") {
+                if currentStep > 0 {
+                    currentStep -= 1
+                }
+            }
+            .buttonStyle(.borderedProminent)
+            .frame(maxWidth: .infinity) // Ensures uniform width
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.blue)
+            .cornerRadius(10)
         }
     }
-
+    
     // Function to upload the video to the FastAPI server
     func uploadVideo(for playerName: String, for team: String) {
         guard let videoURL = cameraModel.videoURL else {
@@ -311,6 +325,7 @@ struct StartGameView: View {
         }.resume()
     }
 }
+
 
 import AVFoundation
 
