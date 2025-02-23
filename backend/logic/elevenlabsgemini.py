@@ -43,9 +43,6 @@ def generate_commentary_prompt(event):
     return prompt
 
 def generate_commentary_for_event(event):
-    """
-    Generate commentary for a single event using the Gemini API.
-    """
     prompt = generate_commentary_prompt(event)
     response = client.models.generate_content(
         model="gemini-2.0-flash",
@@ -55,32 +52,35 @@ def generate_commentary_for_event(event):
             temperature=0.8
         )
     )
-    if response.status_code == 200:
-        data = response.json()
-        commentary = data.get("text", "").strip()
-        if commentary:
-            return commentary
-        else:
-            raise Exception(f"Gemini API returned an empty response for event at {event['time']:.2f}s")
+    # Directly access the 'text' attribute from the response model
+    commentary = response.text.strip() if response.text else ""
+    if commentary:
+        return commentary
     else:
-        raise Exception(f"Gemini API error {response.status_code}: {response.text}")
+        raise Exception(f"Gemini API returned an empty response for event at {event['time']:.2f}s")
+
 
 def text_to_speech_elevenlabs(text, output_filename):
     """
     Convert the provided text to an audio file using the ElevenLabs API.
     """
-    audio = client1.text_to_speech.convert(
+    audio_generator = client1.text_to_speech.convert(
         text=text,
-        voice_id="J29vD33N1CtxCmqQRPOHJ",
+        voice_id="29vD33N1CtxCmqQRPOHJ",
         model_id="eleven_multilingual_v2",
         output_format="mp3_44100_128",
     )
-    if audio.status_code == 200:
+    # Combine all the audio chunks from the generator into one bytes object
+    audio_content = b"".join(audio_generator)
+    
+    if audio_content:
         with open(output_filename, "wb") as f:
-            f.write(audio.content)
+            f.write(audio_content)
         print(f"Audio commentary saved as {output_filename}")
     else:
-        raise Exception(f"ElevenLabs API error {audio.status_code}: {audio.text}")
+        raise Exception("ElevenLabs API error: No audio content returned.")
+
+
 
 def generate_and_prepare_commentary(events):
     """

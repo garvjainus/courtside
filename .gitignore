@@ -25,3 +25,5 @@ trained_persons/
 Thumbs.db
 
 xcuserdata/
+
+.env
